@@ -1,0 +1,150 @@
+.logo {
+
+    width: 45px;
+    margin: -10px;
+    margin-left: 5px;
+}
+
+nav .lista-produtos {
+
+    list-style: none;
+    display: flex;
+    gap: 20px;
+
+}
+
+nav .lista-produtos li a {
+
+    text-decoration: none;
+    color: rgba(53, 0, 51, 1);
+    text-transform: lowercase;
+    font-size: 14px;
+    font-weight: bold;
+
+}
+
+.botao-login {
+
+    text-decoration: none;
+    border: 1px solid rgba(53, 0, 51, 1);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: rgba(53, 0, 51, 1);
+    margin-top: -5px;
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+.cabecalho {
+    font-size: 48px;
+    font-weight: bold;
+    color: rgba(53, 0, 51, 1);
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+}
+
+.cadastro-container {
+    width: 700px;
+    margin: 50px auto;
+    background: rgba(247, 247, 247, 1);
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+.cadastro-container h2 {
+    color: rgba(53, 0, 51, 1);
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.form-cadastro {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 90%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.form-cadastro a {
+
+    text-decoration: none;
+    color: white;
+
+}
+
+.form-cadastro input {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+
+.linha-dupla {
+    display: flex;
+    gap: 15px;
+    width: 94.5%;
+}
+
+.linha-dupla div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: block;
+    text-align: left;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.botao {
+
+    margin-top: 10px;
+    background-color: rgba(53, 0, 51, 1);
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    padding: 12px 24px;
+    border-radius: 6px;
+    width: 85.8%;
+    height: 50px;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+
+}
+
+.botao:hover {
+
+    background-color: #7c3ea3;
+
+}

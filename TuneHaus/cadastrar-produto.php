@@ -34,122 +34,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TUNEHAUS - Cadastrar Produto</title>
-<style>
-      body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ccc;
-        }
-        header img { height: 50px; }
-        nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #4b254b;
-            font-weight: bold;
-        }
-        .container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fefefe;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .container h2 {
-            text-align: center;
-            color: #4b254b;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #4b254b;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #351736;
-        }
-        .img-preview {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .img-preview img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid #ccc;
-        }</style>
+<link rel="stylesheet" href="css/cadastrar-produto.css">
+
+
 </head>
 <body>
 <header>
-    <div><h1>TUNEHAUS 🎵</h1></div>
+    <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
     <nav>
-        <a href="index.php">home</a>
-        <a href="#">guitarras</a>
-        <a href="#">violões</a>
-        <a href="#">baixos</a>
-        <a href="#">teclados</a>
-        <a href="#">flautas</a>
-        <a href="login.php">Login</a>
+        <ul class="lista-produtos">
+            <li><a href="home-logado.html">home</a></li>
+            <li><a href="listar-produto.php">guitarras</a></li>
+            <li><a href="#">violões</a></li>
+            <li><a href="#">baixos</a></li>
+            <li><a href="#">teclados</a></li>
+            <li><a href="#">flautas</a></li>
+            <li><a href="logout.php" class="botao-logout">logout</a></li>
+        </ul>
     </nav>
 </header>
 
-<div class="container">
-    <h2>CADASTRAR PRODUTO</h2>
-    <form method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="nome">Nome</label>
-        <input type="text" name="nome" id="nome" value="" required>
-    </div>
-    <div class="form-group">
-        <label for="descricao">Descrição</label>
-        <textarea name="descricao" id="descricao" required></textarea>
-    </div>
-    <div class="form-group">
-        <label for="informacoes">Informações Adicionais</label>
-        <textarea name="informacoes" id="informacoes"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="preco">Preço</label>
-        <input type="text" name="preco" id="preco" value="" required>
-    </div>
-    <div class="form-group">
-        <label for="musica">Sugestão de Música</label>
-        <input type="text" name="musica" id="musica" value="">
-    </div>
-    <div class="form-group">
-        <label for="imagem">Imagem (opcional)</label>
-        <input type="file" name="imagem" id="imagem" accept="image/*">
-    </div>
-    <button type="submit">CADASTRAR PRODUTO</button>
-    </form>
-</div>
+    <main>
+        <section class="cadastro-container">
+            <div class="titulo-imagens">
+                <img src="img/notasmusicais.png" alt="Notas musicais" class="notas-musicais">
+                <h2>CADASTRAR <br> PRODUTOS</h2>
+                <img src="img/notasmusicais2.png" class="notas-musicais-dois">
+            </div>
+            <form method="POST" enctype="multipart/form-data" class="form-cadastro">
+                
+                    <label for="nome">Nome</label>
+                    <input type="text" placeholder="Digite o nome do produto">
+              
+                    <label  for="descricao">Descrição</label>
+                    <textarea placeholder="Digite a descrição do produto" name="descricao" id="descricao" required></textarea>
+               
+                    <label for="informacoes">Informações Adicionais </label>
+                    <textarea placeholder="Digite as Informações do produto" name="informacoes" id="informacoes"></textarea>
+              
+                    <label for="preco">Preço</label>
+                    <input type="number" placeholder="R$" name="preco" id="preco" value="" required>
+                
+                    <label for="musica">Sugestão de música</label>
+                    <input type="url" placeholder="https://exemplo.com.br" name="musica" id="musica" value="">
+                
+                    <label for="imagem">Imagem</label>
+                    <input type="file" name="imagem" id="imagem" accept="image/*">
+              
+                    <button type="submit" class="botao">CADASTRAR PRODUTO</button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>

@@ -1,0 +1,189 @@
+header {
+  background-image: linear-gradient(
+      to right,
+      rgba(128, 0, 128, 0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
+  background-size: 10px 10px;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  width: 45px;
+  margin: -10px;
+  margin-left: 5px;
+  text-shadow: 0px 5px 5px #585858;
+}
+
+nav .lista-produtos {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav .lista-produtos li a {
+  text-decoration: none;
+  color: rgba(53, 0, 51, 1);
+  text-transform: lowercase;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.botao-logout,
+.botao-logout:link,
+.botao-logout:visited,
+.botao-logout:hover,
+.botao-logout:active {
+  color: red;
+  background-color: transparent;
+  border: 2px solid red;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
+  padding: 4px;
+}
+
+.botao-logar {
+  height: 70px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.cabecalho {
+  font-size: 48px;
+  font-weight: bold;
+  color: rgba(53, 0, 51, 1);
+  text-shadow: 0px 5px 5px #585858;
+}
+
+.editar-container {
+  width: 700px;
+  margin: 50px auto;
+  background: rgba(247, 247, 247, 1);
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+.editar-container h2 {
+  color: rgba(53, 0, 51, 1);
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.form-editar {
+  display: inline-flex;
+  width: 500px;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-editar label {
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-weight: bold;
+}
+
+.form-editar input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form-editar textarea {
+  resize: vertical;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  width: 95%;
+  min-height: 80px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  resize: none;
+}
+
+.botao {
+  margin-top: 10px;
+  background-color: rgba(53, 0, 51, 1);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  padding: 12px 24px;
+  border-radius: 6px;
+  width: 500px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.botao:hover {
+  background-color: #7c3ea3;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+.titulo-imagens {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.titulo-imagens h2 {
+  color: #4b254b;
+  font-weight: bold;
+  margin: 0;
+}
+
+.titulo-imagens img {
+  width: 200px;
+  height: auto;
+}
+
+.notas-musicais {
+  transform: rotate(15deg);
+}
+
+.notas-musicais-dois {
+  transform: rotate(-15deg);
+}
+
+.img-preview {
+  text-align: center;
+  margin-bottom: 15px;
+}
+.img-preview img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}

@@ -15,14 +15,16 @@
         <nav>
             <ul class="lista-produtos">
                 <li><a href="home-logado.html">home</a></li>
-                <li><a href="guitarras.html">guitarras</a></li>
+                <li><a href="listar-produto.php">guitarras</a></li>
                 <li><a>violões</a></li>
                 <li><a>baixos</a></li>
                 <li><a>teclados</a></li>
                 <li><a>flautas</a></li>
-                <a href="home-deslogado.html" class="botao-logout">
-                    <li>Logout</li>
-                </a>
+                <li>
+                    <form action="logout.php" method="POST" style="display:inline">
+                        <button type="submit" class="botao-logout">Logout</button>
+                    </form>
+                </li>
             </ul>
         </nav>
     </header>

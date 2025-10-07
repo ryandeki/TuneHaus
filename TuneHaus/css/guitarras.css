@@ -7,12 +7,15 @@ header {
     linear-gradient(to bottom, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
   background-size: 10px 10px;
   position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 .logo {
   width: 45px;
   margin: -10px;
   margin-left: 5px;
+  text-shadow: 0px 5px 5px #585858;
 }
 
 nav .lista-produtos {
@@ -51,6 +54,8 @@ body {
   font-family: Arial, sans-serif;
   background-color: #ffffff;
   color: #333;
+  margin: 0;
+  padding: 0;
 }
 
 header {
@@ -64,11 +69,7 @@ header {
   font-size: 48px;
   font-weight: bold;
   color: rgba(53, 0, 51, 1);
-}
-
-main {
-  text-align: center;
-  padding: 40px 80px;
+  text-shadow: 0px 5px 5px #585858;
 }
 
 main h2 {
@@ -191,4 +192,42 @@ main h2 {
 
 .produto-card .preco {
   color: #000;
+}
+
+main {
+  text-align: center;
+  padding: 40px 80px;
+  min-height: 80vh;
+}
+
+.topo {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.titulo-com-linhas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.titulo-com-linhas .linha {
+  flex: 1;
+  height: 2px;
+  background-color: #40023c;
+}
+
+.titulo-com-linhas h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  white-space: nowrap;
+  text-align: center;
 }

@@ -21,7 +21,7 @@ $erro = $_GET['erro'] ?? '';
         <nav>
             <ul class="lista-produtos">
                 <li><a href="home-deslogado.html">home</a></li>
-                <li><a href="guitarras.html">guitarras</a></li>
+                <li><a href="#">guitarras</a></li>
                 <li><a href="#">violões</a></li>
                 <li><a href="#">baixos</a></li>
                 <li><a href="#">teclados</a></li>
@@ -69,7 +69,9 @@ $erro = $_GET['erro'] ?? '';
                     <input type="password" name="senha" placeholder="Digite sua senha" required>
                     <button type="submit" class="botao-logar">Login</button>
                 </form>
+                <div class="cadastre">
                 <p>Não tem cadastro ainda?<br><a href="cadastrar-cliente.html" class="cadastro">CADASTRE-SE</a></p>
+                </div>
             </div>
         </div>
         </section>

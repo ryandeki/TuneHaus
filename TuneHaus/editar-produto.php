@@ -48,141 +48,66 @@ if (!$produto) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/alterar-produto.css">
     <title>TUNEHAUS - Editar Produto</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ccc;
-        }
-        header img { height: 50px; }
-        nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #4b254b;
-            font-weight: bold;
-        }
-        .container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fefefe;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .container h2 {
-            text-align: center;
-            color: #4b254b;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #4b254b;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #351736;
-        }
-        .img-preview {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .img-preview img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid #ccc;
-        }
-    </style>
 </head>
+
 <body>
-    <header>
-        <div><h1>TUNEHAUS 🎵</h1></div>
-        <nav>
-            <a href="index.php">home</a>
-            <a href="#">guitarras</a>
-            <a href="#">violões</a>
-            <a href="#">baixos</a>
-            <a href="#">teclados</a>
-            <a href="#">flautas</a>
-            <a href="login.php">Login</a>
-        </nav>
-    </header>
+<header>
+    <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
+    <nav>
+        <ul class="lista-produtos">
+            <li><a href="home-logado.html">home</a></li>
+            <li><a href="listar-produto.php">guitarras</a></li>
+            <li><a href="#">violões</a></li>
+            <li><a href="#">baixos</a></li>
+            <li><a href="#">teclados</a></li>
+            <li><a href="#">flautas</a></li>
+            <li><a href="logout.php" class="botao-logout">logout</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <div class="container">
-        <h2>EDITAR PRODUTO</h2>
-        <form method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="<?= $produto->getId() ?>">
+     <main>
+        <section class="editar-container">
+            <div class="titulo-imagens">
+                <img src="img/notasmusicais.png" alt="Notas musicais" class="notas-musicais">
+                <h2>EDITAR <br> PRODUTO</h2>
+                <img src="img/notasmusicais2.png" class="notas-musicais-dois">
+            </div>
+            <form method="POST" enctype="multipart/form-data" class="form-editar">
+                
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($produto->getNome()) ?>" required>
+              
+                    <label for="descricao">Descrição</label>
+                    <textarea name="descricao" id="descricao" required><?= htmlspecialchars($produto->getDescricao()) ?></textarea>
+               
+                    <label for="informacoes">Informações Adicionais</label>
+                    <textarea name="informacoes" id="informacoes"><?= htmlspecialchars($produto->getInformacoes()) ?></textarea>
+              
+                    <label for="preco">Preço</label>
+                    <input type="number" name="preco" id="preco" value="<?= htmlspecialchars($produto->getPreco()) ?>" required>
 
-    <div class="form-group">
-        <label for="nome">Nome</label>
-        <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($produto->getNome()) ?>" required>
-    </div>
+                    <label for="musica">Sugestão de Música</label>
+                    <input type="url" name="musica" id="musica" value="<?= htmlspecialchars($produto->getMusica()) ?>">
+                
+                    <div class="img-preview">
+                        <?php if ($produto->getImagem()): ?>
+                            <p>Imagem atual:</p>
+                            <img src="uploads/<?= $produto->getImagem() ?>" alt="<?= htmlspecialchars($produto->getNome()) ?>">
+                        <?php else: ?>
+                            <p>Sem imagem cadastrada</p>
+                        <?php endif; ?>
+                    </div>
+                
+                    <label for="imagem">Nova imagem (opcional)</label>
+                    <input type="file" name="imagem" id="imagem" accept="image/*">
+              
+                    <button type="submit" class="botao">SALVAR ALTERAÇÕES</button>
+            </form>
+        </section>
+    </main>
 
-    <div class="form-group">
-        <label for="descricao">Descrição</label>
-        <textarea name="descricao" id="descricao" required><?= htmlspecialchars($produto->getDescricao()) ?></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="informacoes">Informações Adicionais</label>
-        <textarea name="informacoes" id="informacoes"><?= htmlspecialchars($produto->getInformacoes()) ?></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="preco">Preço</label>
-        <input type="text" name="preco" id="preco" value="<?= htmlspecialchars($produto->getPreco()) ?>" required>
-    </div>
-
-    <div class="form-group">
-        <label for="musica">Sugestão de Música</label>
-        <input type="text" name="musica" id="musica" value="<?= htmlspecialchars($produto->getMusica()) ?>">
-    </div>
-
-    <div class="img-preview">
-        <?php if ($produto->getImagem()): ?>
-            <p>Imagem atual:</p>
-            <img src="uploads/<?= $produto->getImagem() ?>" alt="<?= htmlspecialchars($produto->getNome()) ?>">
-        <?php else: ?>
-            <p>Sem imagem cadastrada</p>
-        <?php endif; ?>
-    </div>
-
-    <div class="form-group">
-        <label for="imagem">Nova imagem (opcional)</label>
-        <input type="file" name="imagem" id="imagem" accept="image/*">
-    </div>
-
-    <button type="submit">SALVAR ALTERAÇÕES</button>
-</form>
-    </div>
 </body>
 </html>

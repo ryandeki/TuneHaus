@@ -2,6 +2,14 @@
 require_once __DIR__ . '/../src/conexao-bd.php';
 require_once __DIR__ . '/../src/Repositorio/ProdutoRepositorio.php';
 
+session_start();
+
+if(!isset($_SESSION['usuario']))
+{
+    header('Location: login.php');
+}
+$usuarioLogado = $_SESSION['usuario'];
+
 $repo = new ProdutoRepositorio($pdo);
 $produtos = $repo->listar();
 ?>
@@ -29,13 +37,26 @@ $produtos = $repo->listar();
             <li><a href="#">baixos</a></li>
             <li><a href="#">teclados</a></li>
             <li><a href="#">flautas</a></li>
-            <li><a href="home-deslogado.html" class="botao-logout">Logout</a></li>
+            <li>
+                <form action="logout.php" method="POST" style="display:inline">
+                    <button type="submit" class="botao-logout">Logout</button>
+                </form>
+            </li>  
         </ul>
     </nav>
 </header>
 
 <main>
-    <h2>GUITARRAS</h2>
+    <div class="topo">
+        <p>Bem-vindo, <strong><?php echo htmlspecialchars($usuarioLogado); ?></strong>!</p>
+        <h1>Painel Administrativo</h1>
+        <div class="titulo-com-linhas">
+            <div class="linha"></div>
+                <h2>GUITARRAS</h2>
+            <div class="linha"></div>
+        </div>
+    </div>
+   
 
 <section class="produtos-container">
     <?php foreach($produtos as $produto): ?>

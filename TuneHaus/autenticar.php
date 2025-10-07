@@ -6,6 +6,7 @@ require_once __DIR__ . '/../src/conexao-bd.php';
 require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
 require_once __DIR__ . '/../src/Modelo/Usuario.php';
 
+//Permitir somente POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: login.php');
     exit;
@@ -14,29 +15,27 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $email = trim($_POST['email'] ?? '');
 $senha = $_POST['senha'] ?? '';
 
+//Campos obrigatórios
 if ($email === '' || $senha === '') {
     header('Location: login.php?erro=campos');
     exit;
 }
 
 $repo = new UsuarioRepositorio($pdo);
-$usuario = $repo->buscarPorEmail($email);
 
-// DEBUG: ver o que o banco retornou
-echo '<pre>';
-var_dump($usuario);
-echo '</pre>';
-
-// Se o usuário existe, verificar a senha
-if ($usuario) {
-    echo "Senha digitada: $senha\n";
-    echo "Hash do banco: " . $usuario->getSenha() . "\n";
-    $verifica = password_verify($senha, $usuario->getSenha());
-    echo "password_verify: ";
-    var_dump($verifica);
+//Credenciais corretas
+if ($repo->autenticar($email, $senha)) {
+    //Regenera a sessão 
+    session_regenerate_id(true);
+    //Setar a sessão com o email do usuário
+    $_SESSION['usuario'] = $email;
+    // echo '<pre>';
+    // var_dump($_SESSION);
+    // echo '</pre>';
+    header('Location:listar-produto.php');
     exit;
 }
 
-// Se não encontrou
-echo "Usuário não encontrado";
+//Falha nas credenciais
+header('Location: login.php?erro=credenciais');
 exit;

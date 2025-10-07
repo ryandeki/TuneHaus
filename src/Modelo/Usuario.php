@@ -1,30 +1,22 @@
 <?php
-    class Usuario
-    {
-        private int $id;
-        private string $email;
-        private string $senha;
+class Usuario {
+  private $id;
+    private $nome;
+    private $email;
+    private $senha;
+    private $perfil;
 
-        //Método construtor
-        public function __construct(int $id, string $email, string $senha){
-            $this->id = $id;
-            $this->email = $email;
-            $this->senha = $senha;
-        }
-
-        public function getId(): int
-        {
-            return $this->id;
-        }
-
-        public function getEmail(): string
-        {
-            return $this->email;
-        }
-
-        public function getSenha(): string
-        {
-            return $this->senha;
-        }
+    public function __construct($id, $nome, $email, $senha, $perfil) {
+        $this->id = $id;
+        $this->nome = $nome;
+        $this->email = $email;
+        $this->senha = $senha;
+        $this->perfil = $perfil;
     }
+
+    public function getNome() { return $this->nome; }
+    public function getEmail() { return $this->email; }
+    public function getSenha() { return $this->senha; }
+    public function getPerfil() { return $this->perfil; }
+}
 ?>

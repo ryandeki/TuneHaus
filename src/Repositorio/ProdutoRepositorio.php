@@ -18,7 +18,7 @@ class ProdutoRepositorio
             $dados['informacoes'] ?? null,
             (float)$dados['preco'],
             $dados['musica'] ?? null,
-            $dados['imagem'] ?? null
+            $dados['imagem'] ?? null,
         );
     }
     public function salvar(Produto $produto): void

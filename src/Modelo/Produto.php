@@ -16,7 +16,7 @@
         ?string $informacoes,
         float $preco,
         ?string $musica,
-        ?string $imagem
+        ?string $imagem,
     ) {
         $this->id = $id;
         $this->nome = $nome;
@@ -60,6 +60,7 @@
     {
         return $this->imagem;
     }
+   
     public function setNome(string $nome): void
     {
         $this->nome = $nome;

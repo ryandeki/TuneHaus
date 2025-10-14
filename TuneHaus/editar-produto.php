@@ -76,7 +76,7 @@ if (!$produto) {
                 <img src="img/notasmusicais2.png" class="notas-musicais-dois">
             </div>
             <form method="POST" enctype="multipart/form-data" class="form-editar">
-                
+
                     <label for="nome">Nome</label>
                     <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($produto->getNome()) ?>" required>
               

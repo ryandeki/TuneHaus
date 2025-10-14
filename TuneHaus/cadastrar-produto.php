@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" enctype="multipart/form-data" class="form-cadastro">
                 
                     <label for="nome">Nome</label>
-                    <input type="text" placeholder="Digite o nome do produto">
+                    <input type="text" name="nome" id="nome" placeholder="Digite o nome do produto">
               
                     <label  for="descricao">Descrição</label>
                     <textarea placeholder="Digite a descrição do produto" name="descricao" id="descricao" required></textarea>

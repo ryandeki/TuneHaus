@@ -3,9 +3,9 @@
     require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
     require_once __DIR__ . '/../src/Modelo/Usuario.php';
 
-    $email = 'clarissa@exemplo.com';
+    $email = 'ryan@exemplo.com';
     $senha = '1234';
-    $nome = 'Clarissa';
+    $nome = 'Ryan';
     $perfil = 'Admin';
 
     $repo = new UsuarioRepositorio($pdo);

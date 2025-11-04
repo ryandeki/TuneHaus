@@ -1,0 +1,214 @@
+.logo {
+    width: 45px;
+    margin: -10px;
+    margin-left: 5px;
+    text-shadow: 0px 5px 5px #585858;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+nav .lista-produtos {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav .lista-produtos li a {
+    text-decoration: none;
+    color: rgba(53, 0, 51, 1);
+    text-transform: lowercase;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.botao-logout {
+    text-decoration: none;
+    border: 1px solid rgba(145, 13, 15, 1);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: rgba(145, 13, 15, 1);
+    margin-top: -5px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    background: rgba(233, 195, 255, 1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+}
+
+.cabecalho {
+    font-size: 48px;
+    font-weight: bold;
+    color: rgba(53, 0, 51, 1);
+    text-shadow: 0px 5px 5px #585858;
+}
+
+.banner {
+    background: url("../img/fundoinicial.jpg") center/cover no-repeat;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.banner .overlay {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.banner p {
+    font-size: 1rem;
+}
+
+.produtos {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    padding: 60px 120px;
+    justify-content: center;
+    align-items: center;
+}
+
+.linha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 300px;
+}
+
+.linha.invertida {
+    flex-direction: row-reverse;
+}
+
+.texto1 {
+    max-width: 1000px;
+    text-align: left;
+}
+
+.texto1 h2 {
+    font-size: 40px;
+    margin-bottom: 5px;
+    color: #000;
+}
+
+.texto1 p {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.produto .imagem1 {
+    border: 2px solid black;
+    padding: 20px;
+}
+
+.produto .imagem1 img {
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    width: 400px;
+}
+
+.botao1 {
+    background-color: rgba(224, 174, 34, 1);
+    color: white;
+    padding: 8px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 15px;
+    display: inline-block;
+}
+
+.botao1:hover {
+    background-color: rgb(219, 177, 60);
+}
+
+.texto2 {
+    max-width: 300px;
+    text-align: left;
+}
+
+.texto2 h2 {
+    font-size: 40px;
+    margin-bottom: 5px;
+    color: #000;
+}
+
+.texto2 p {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.produto .imagem2 {
+    border: 2px solid black;
+    padding: 20px;
+}
+
+.produto .imagem2 img {
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.botao2 {
+    background-color: rgba(224, 174, 34, 1);
+    color: white;
+    padding: 8px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 15px;
+    display: inline-block;
+}
+
+.botao2:hover {
+    background-color: rgb(219, 177, 60);
+}
+
+.botao-logout,
+.botao-logout:link,
+.botao-logout:visited,
+.botao-logout:hover,
+.botao-logout:active {
+    color: red;
+    background-color: transparent;
+    border: 2px solid red;
+    border-radius: 6px;
+    font-weight: bold;
+    display: inline-block;
+    padding: 4px;
+}

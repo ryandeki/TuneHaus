@@ -5,109 +5,160 @@ require_once __DIR__ . '/../src/Modelo/Produto.php';
 
 $repo = new ProdutoRepositorio($pdo);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = (int)$_POST['id'];
-    $nome = $_POST['nome'];
-    $descricao = $_POST['descricao'];
-    $informacoes = $_POST['informacoes'] ?? null;
-    $preco = (float)$_POST['preco'];
-    $musica = $_POST['musica'] ?? null;
-
-    $produto = $repo->buscarPorId($id);
-    if (!$produto) {
-        echo "<script>alert('Produto não encontrado!'); window.location='listar-produto.php';</script>";
-        exit;
-    }
-
-    $imagem = $produto->getImagem();
-
-    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
-        $nome_imagem = $_FILES['imagem']['name'];
-        move_uploaded_file($_FILES['imagem']['tmp_name'], "uploads/" . $nome_imagem);
-        $imagem = $nome_imagem;
-    }
-
-    $produto = new Produto($id, $nome, $descricao, $informacoes, $preco, $musica, $imagem);
-    $repo->atualizar($produto);
-
-    echo "<script>alert('Produto atualizado com sucesso!'); window.location='listar-produto.php';</script>";
-    exit;
+try {
+    $stmtCat = $pdo->query("SELECT id, nome FROM categorias ORDER BY nome");
+    $categorias = $stmtCat->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+    $categorias = [];
 }
 
-$id = (int)$_GET['id'];
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $produto = $repo->buscarPorId($id);
 if (!$produto) {
     echo "<script>alert('Produto não encontrado!'); window.location='listar-produto.php';</script>";
     exit;
 }
-?>
 
+$erros = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome = trim($_POST['nome']);
+    $descricao = trim($_POST['descricao']);
+    $informacoes = trim($_POST['informacoes']) ?: null;
+    $preco = isset($_POST['preco']) ? (float)$_POST['preco'] : 0;
+    $musica = trim($_POST['musica']) ?: null;
+    $categoria_id = isset($_POST['categoria_id']) ? (int)$_POST['categoria_id'] : null;
+
+    if ($nome === '') $erros[] = 'Nome é obrigatório.';
+    if ($descricao === '') $erros[] = 'Descrição é obrigatória.';
+    if ($preco <= 0) $erros[] = 'Informe um preço válido.';
+    if (empty($categoria_id)) $erros[] = 'Escolha a categoria.';
+
+    $imagem = $produto->getImagem();
+    $uploadsDir = __DIR__ . '/uploads/';
+
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === 0) {
+        if (!is_dir($uploadsDir)) mkdir($uploadsDir, 0755, true);
+
+        $ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
+        $nome_imagem = uniqid('img_', true) . '.' . $ext;
+
+        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $uploadsDir . $nome_imagem)) {
+            $imagem = $nome_imagem;
+        } else {
+            $erros[] = 'Falha ao enviar a imagem. A imagem atual será mantida.';
+        }
+    }
+
+    if (empty($erros)) {
+        $produtoAtualizado = new Produto(
+            $produto->getId(),
+            $nome,
+            $descricao,
+            $informacoes,
+            $preco,
+            $musica,
+            $imagem,
+            $categoria_id
+        );
+
+        try {
+            $repo->atualizar($produtoAtualizado);
+            echo "<script>alert('Produto atualizado com sucesso!'); window.location='listar-produto.php';</script>";
+            exit;
+        } catch (Exception $e) {
+            $erros[] = 'Erro ao atualizar produto: ' . $e->getMessage();
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/alterar-produto.css">
     <title>TUNEHAUS - Editar Produto</title>
+    <link rel="stylesheet" href="css/alterar-produto.css">
 </head>
-
 <body>
 <header>
     <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
     <nav>
         <ul class="lista-produtos">
             <li><a href="home-logado.html">home</a></li>
-            <li><a href="listar-produto.php">guitarras</a></li>
-            <li><a href="#">violões</a></li>
-            <li><a href="#">baixos</a></li>
-            <li><a href="#">teclados</a></li>
-            <li><a href="#">flautas</a></li>
+            <?php foreach ($categorias as $cat): ?>
+                <li>
+                    <a href="listar-produto.php?categoria=<?= $cat['id'] ?>">
+                        <?= htmlspecialchars($cat['nome']) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
             <li><a href="logout.php" class="botao-logout">logout</a></li>
         </ul>
     </nav>
 </header>
 
-     <main>
-        <section class="editar-container">
-            <div class="titulo-imagens">
-                <img src="img/notasmusicais.png" alt="Notas musicais" class="notas-musicais">
-                <h2>EDITAR <br> PRODUTO</h2>
-                <img src="img/notasmusicais2.png" class="notas-musicais-dois">
+<main>
+    <section class="editar-container">
+        <div class="titulo-imagens">
+            <img src="img/notasmusicais.png" alt="Notas musicais" class="notas-musicais">
+            <h2>EDITAR <br> PRODUTO</h2>
+            <img src="img/notasmusicais2.png" class="notas-musicais-dois">
+        </div>
+
+        <?php if(!empty($erros)): ?>
+            <div class="erros">
+                <ul>
+                    <?php foreach($erros as $erro): ?>
+                        <li><?= htmlspecialchars($erro) ?></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
-            <form method="POST" enctype="multipart/form-data" class="form-editar">
+        <?php endif; ?>
 
-                    <label for="nome">Nome</label>
-                    <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($produto->getNome()) ?>" required>
-              
-                    <label for="descricao">Descrição</label>
-                    <textarea name="descricao" id="descricao" required><?= htmlspecialchars($produto->getDescricao()) ?></textarea>
-               
-                    <label for="informacoes">Informações Adicionais</label>
-                    <textarea name="informacoes" id="informacoes"><?= htmlspecialchars($produto->getInformacoes()) ?></textarea>
-              
-                    <label for="preco">Preço</label>
-                    <input type="number" name="preco" id="preco" value="<?= htmlspecialchars($produto->getPreco()) ?>" required>
+        <form method="POST" enctype="multipart/form-data" class="form-editar">
+            <input type="hidden" name="id" value="<?= $produto->getId() ?>">
 
-                    <label for="musica">Sugestão de Música</label>
-                    <input type="url" name="musica" id="musica" value="<?= htmlspecialchars($produto->getMusica()) ?>">
-                
-                    <div class="img-preview">
-                        <?php if ($produto->getImagem()): ?>
-                            <p>Imagem atual:</p>
-                            <img src="uploads/<?= $produto->getImagem() ?>" alt="<?= htmlspecialchars($produto->getNome()) ?>">
-                        <?php else: ?>
-                            <p>Sem imagem cadastrada</p>
-                        <?php endif; ?>
-                    </div>
-                
-                    <label for="imagem">Nova imagem (opcional)</label>
-                    <input type="file" name="imagem" id="imagem" accept="image/*">
-              
-                    <button type="submit" class="botao">SALVAR ALTERAÇÕES</button>
-            </form>
-        </section>
-    </main>
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($produto->getNome()) ?>" required>
 
+            <label for="descricao">Descrição</label>
+            <textarea name="descricao" id="descricao" required><?= htmlspecialchars($produto->getDescricao()) ?></textarea>
+
+            <label for="informacoes">Informações Adicionais</label>
+            <textarea name="informacoes" id="informacoes"><?= htmlspecialchars($produto->getInformacoes()) ?></textarea>
+
+            <label for="preco">Preço</label>
+            <input type="number" name="preco" id="preco" value="<?= htmlspecialchars($produto->getPreco()) ?>" required>
+
+            <label for="musica">Sugestão de Música</label>
+            <input type="url" name="musica" id="musica" value="<?= htmlspecialchars($produto->getMusica()) ?>">
+
+            <label for="categoria_id">Categoria</label>
+            <select name="categoria_id" id="categoria_id" required>
+                <option value="">Selecione a categoria</option>
+                <?php foreach ($categorias as $cat): ?>
+                    <option value="<?= $cat['id'] ?>" <?= ($produto->getCategoriaId() == $cat['id']) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($cat['nome']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+
+            <div class="img-preview">
+                <?php
+                    $imagemAtual = $produto->getImagem();
+                    $caminhoImagem = $imagemAtual ? (str_starts_with($imagemAtual, 'img/') ? $imagemAtual : 'uploads/' . $imagemAtual) : 'img/nao-encontrada.jpg';
+                ?>
+                <p>Imagem atual:</p>
+                <img src="<?= htmlspecialchars($caminhoImagem) ?>" alt="<?= htmlspecialchars($produto->getNome()) ?>">
+            </div>
+
+            <label for="imagem">Nova imagem (opcional)</label>
+            <input type="file" name="imagem" id="imagem" accept="image/*">
+
+            <button type="submit" class="botao">SALVAR ALTERAÇÕES</button>
+        </form>
+    </section>
+</main>
 </body>
 </html>

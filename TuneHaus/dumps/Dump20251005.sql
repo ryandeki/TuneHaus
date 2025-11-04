@@ -4,10 +4,6 @@
 -- ------------------------------------------------------
 -- Server version	8.0.42
 
-DROP DATABASE IF EXISTS tunehausdb;
-CREATE DATABASE tunehausdb;
-USE tunehausdb;
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -18,6 +14,30 @@ USE tunehausdb;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `categorias`
+--
+
+DROP TABLE IF EXISTS `categorias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categorias` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categorias`
+--
+
+LOCK TABLES `categorias` WRITE;
+/*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
+INSERT INTO `categorias` VALUES (1,'Guitarras'),(2,'Violões'),(3,'Baixos'),(4,'Teclados'),(5,'Flautas');
+/*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `produtos`
@@ -32,10 +52,11 @@ CREATE TABLE `produtos` (
   `descricao` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `informacoes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `preco` decimal(10,2) NOT NULL,
+  `categoria_id` int NOT NULL,
   `musica` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `imagem` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +65,7 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
+INSERT INTO `produtos` VALUES (37,'guitarrinha bonitnha','ghh','bvnvn6',6.00,2,'http://localhost/TuneHaus/TuneHaus/cadastrar-produto.php','img_69098130471e23.82730126.webp');
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +86,7 @@ CREATE TABLE `usuarios` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_usuarios_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +95,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (4,'Admin','Admin','admin@exemplo.com','$2y$12$hgp0eHsLqms7lyCaETAhQujcacTxzCaajw4fMIvdJxG2JOyktbIaG','2025-09-21 16:33:19','2025-09-22 23:45:59'),(23,'Usuario','User','teste@exemplo.com','$2y$10$cZ.d26bqpB.W7a4w9SaIkuNJ.DiG3kc6Mt37d2HWulyk.im0pmy/.','2025-09-22 21:21:12','2025-09-30 00:00:59');
+INSERT INTO `usuarios` VALUES (4,'Admin','Admin','admin@exemplo.com','$2y$12$hgp0eHsLqms7lyCaETAhQujcacTxzCaajw4fMIvdJxG2JOyktbIaG','2025-09-21 16:33:19','2025-09-22 23:45:59'),(23,'Usuario','User','teste@exemplo.com','$2y$10$cZ.d26bqpB.W7a4w9SaIkuNJ.DiG3kc6Mt37d2HWulyk.im0pmy/.','2025-09-22 21:21:12','2025-09-30 00:00:59'),(41,'Clarissa','Admin','clarissa@exemplo.com','$2y$10$AEyG8/pblS9bb8CnK.1i8u9xxTVdWizIpNBAgSe/dxTfnkZCGSIO6','2025-10-06 21:00:22','2025-10-06 21:00:22');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -86,4 +108,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-05 14:09:31
+-- Dump completed on 2025-11-04  1:48:04

@@ -39,13 +39,13 @@ $erro = $_GET['erro'] ?? '';
                     <p>Você já está logado como <strong>
                             <?php echo htmlspecialchars($usuarioLogado); ?>
                         </strong></p>
-                    <form action="logout.php" method="post">
-                        <button type="submit" class="botao-sair">Sair</button>
-                    </form>
                 </div>
                 <div class="conteudo">
                     <a href="listar-produto.php" class="link-adm">Ir para o Painel Administrativo</a>
                 </div>
+                <form action="logout.php" method="post">
+                        <button type="submit" class="botao-sair">Sair</button>
+                </form>
             </section>
         <?php else: ?>
         <div class="form-wrapper">
@@ -70,7 +70,7 @@ $erro = $_GET['erro'] ?? '';
                     <button type="submit" class="botao-logar">Login</button>
                 </form>
                 <div class="cadastre">
-                <p>Não tem cadastro ainda?<br><a href="cadastrar-cliente.html" class="cadastro">CADASTRE-SE</a></p>
+                <p>Não tem cadastro ainda?<br><a href="..\cadastrar-cliente.html" class="cadastro">CADASTRE-SE</a></p>
                 </div>
             </div>
         </div>

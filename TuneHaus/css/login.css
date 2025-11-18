@@ -129,11 +129,18 @@ form,
   background-color: #7c3ea3;
 }
 
-.cadastro {
+.cadastro, .link-adm{
   text-decoration: none;
   color: #7c3ea3;
   font-weight: bold;
   font-size: 15px;
+}
+
+.link-adm{
+  text-decoration: underline;
+  position: absolute;
+  right: 850px;
+  font-size: 20px;
 }
 
 .endereco-email {
@@ -175,3 +182,23 @@ form,
   width: 400px;
   max-width: 100%;
 }
+
+.botao-sair,
+.botao-sair:link,
+.botao-sair:visited,
+.botao-sair:hover,
+.botao-sair:active {
+  margin-top: 45px;
+  color: red;
+  background-color: transparent;
+  border: 2px solid red;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
+  padding: 4px;
+  position: absolute;
+  right: 975px;
+  font-size: 20px;
+}
+
+

@@ -39,7 +39,7 @@ if ($categoriaId) {
 <head>
     <meta charset="UTF-8">
     <title>TUNEHAUS - <?= htmlspecialchars($tituloPagina) ?></title>
-    <link rel="stylesheet" href="css/guitarras.css">
+    <link rel="stylesheet" href="css/listar-produto.css">
     <link rel="icon" href="img/logopng.png" type="image/x-icon">
 </head>
 <body>
@@ -57,7 +57,7 @@ if ($categoriaId) {
             <li><a href="listar-produto.php?categoria=5">Flautas</a></li>
             <li>
                 <form action="logout.php" method="POST" style="display:inline">
-                    <button type="submit" class="botao-logout">Logout</button>
+                    <button type="submit" class="botao-logout">logout</button>
                 </form>
             </li>
         </ul>

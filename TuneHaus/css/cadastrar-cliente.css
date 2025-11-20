@@ -1,9 +1,7 @@
 header {
-  background-image: linear-gradient(
-      to right,
+  background-image: linear-gradient(to right,
       rgba(128, 0, 128, 0.08) 1px,
-      transparent 1px
-    ),
+      transparent 1px),
     linear-gradient(to bottom, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
   background-size: 10px 10px;
   position: relative;
@@ -50,110 +48,121 @@ body {
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
 }
 
 .cabecalho {
-    font-size: 48px;
-    font-weight: bold;
-    color: rgba(53, 0, 51, 1);
-    text-shadow: 0px 5px 5px #585858;
+  font-size: 48px;
+  font-weight: bold;
+  color: rgba(53, 0, 51, 1);
+  text-shadow: 0px 5px 5px #585858;
 }
 
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
 }
 
 .cadastro-container {
-    width: 700px;
-    margin: 50px auto;
-    background: rgba(247, 247, 247, 1);
-    padding: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    position: relative;
+  width: 700px;
+  margin: 50px auto;
+  background: rgba(247, 247, 247, 1);
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
 }
 
 .cadastro-container h2 {
-    color: rgba(53, 0, 51, 1);
-    margin-bottom: 25px;
-    font-size: 1.8rem;
-    font-weight: 700;
+  color: rgba(53, 0, 51, 1);
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
 .form-cadastro {
-    display: inline-flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 90%;
-    position: relative;
-    margin: 0 auto;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 90%;
+  position: relative;
+  margin: 0 auto;
 }
 
 .form-cadastro a {
 
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 
 }
 
 .form-cadastro input {
-    width: 90%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
 
 .linha-dupla {
-    display: flex;
-    gap: 15px;
-    width: 94.5%;
+  display: flex;
+  gap: 15px;
+  width: 94.5%;
 }
 
 .linha-dupla div {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-    display: block;
-    text-align: left;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
-    font-weight: 500;
+  display: block;
+  text-align: left;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  font-weight: 500;
 }
 
 .botao {
 
-    margin-top: 10px;
-    background-color: rgba(53, 0, 51, 1);
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    text-decoration: none;
-    display: flex;
-    padding: 12px 24px;
-    border-radius: 6px;
-    width: 85.8%;
-    height: 50px;
-    color: white;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
+  margin-top: 10px;
+  background-color: rgba(53, 0, 51, 1);
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  padding: 12px 24px;
+  border-radius: 6px;
+  width: 85.8%;
+  height: 50px;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
 
 }
 
 .botao:hover {
 
-    background-color: #7c3ea3;
+  background-color: #7c3ea3;
 
+}
+
+.swal2-icon.swal2-success {
+  border-color: #40023c;
+}
+
+.swal2-icon.swal2-success .swal2-success-circular-line-left,
+.swal2-icon.swal2-success .swal2-success-circular-line-right,
+.swal2-icon.swal2-success .swal2-success-fix {
+  background-color: #40023c;
+  border-color: #40023c;
 }

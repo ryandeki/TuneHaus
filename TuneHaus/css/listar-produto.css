@@ -1,9 +1,7 @@
 header {
-  background-image: linear-gradient(
-      to right,
+  background-image: linear-gradient(to right,
       rgba(128, 0, 128, 0.08) 1px,
-      transparent 1px
-    ),
+      transparent 1px),
     linear-gradient(to bottom, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
   background-size: 10px 10px;
   position: relative;
@@ -230,4 +228,20 @@ main {
   font-weight: bold;
   white-space: nowrap;
   text-align: center;
+}
+
+.swal2-icon.swal2-warning {
+  border-color: #40023c;
+  color: #40023c;
+}
+
+.swal2-icon.swal2-success {
+  border-color: #40023c;
+}
+
+.swal2-icon.swal2-success .swal2-success-circular-line-left,
+.swal2-icon.swal2-success .swal2-success-circular-line-right,
+.swal2-icon.swal2-success .swal2-success-fix {
+  background-color: #40023c;
+  border-color: #40023c;
 }

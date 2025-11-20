@@ -32,21 +32,21 @@ $erro = $_GET['erro'] ?? '';
     </header>
 
     <main class="main">
-         <?php
+        <?php
         if ($usuarioLogado) : ?>
-            <section class="container-topo">
-                <div class="topo-direita">
-                    <p>Você já está logado como <strong>
-                            <?php echo htmlspecialchars($usuarioLogado); ?>
-                        </strong></p>
-                </div>
-                <div class="conteudo">
-                    <a href="listar-produto.php" class="link-adm">Ir para o Painel Administrativo</a>
-                </div>
-                <form action="logout.php" method="post">
-                        <button type="submit" class="botao-sair">Sair</button>
-                </form>
-            </section>
+        <section class="container-topo">
+            <div class="topo-direita">
+                <p>Você já está logado como <strong>
+                        <?php echo htmlspecialchars($usuarioLogado); ?>
+                    </strong></p>
+            </div>
+            <div class="conteudo">
+                <a href="listar-produto.php" class="link-adm">Ir para o Painel Administrativo</a>
+            </div>
+            <form action="logout.php" method="post">
+                <button type="submit" class="botao-sair">Sair</button>
+            </form>
+        </section>
         <?php else: ?>
         <div class="form-wrapper">
             <?php if ($erro === 'credenciais'): ?>
@@ -56,39 +56,40 @@ $erro = $_GET['erro'] ?? '';
             <?php endif; ?>
 
             <section class="container-form">
-            <div class="login-container">
-                <div class="titulo-com-linhas">
-                    <div class="linha"></div>
-                    <h2>LOGIN</h2>
-                    <div class="linha"></div>
+                <div class="login-container">
+                    <div class="titulo-com-linhas">
+                        <div class="linha"></div>
+                        <h2>LOGIN</h2>
+                        <div class="linha"></div>
+                    </div>
+                    <form action="autenticar.php" method="post">
+                        <p class="endereco-email">Endereço de E-mail</p>
+                        <input type="email" name="email" placeholder="Digite seu E-mail" required>
+                        <p class="senha">Senha</p>
+                        <input type="password" name="senha" placeholder="Digite sua senha" required>
+                        <button type="submit" class="botao-logar">Login</button>
+                    </form>
+                    <div class="cadastre">
+                        <p>Não tem cadastro ainda?<br><a href="cadastrar-cliente.php" class="cadastro">CADASTRE-SE</a>
+                        </p>
+                    </div>
                 </div>
-                <form action="autenticar.php" method="post">
-                    <p class="endereco-email">Endereço de E-mail</p>
-                    <input type="email" name="email" placeholder="Digite seu E-mail" required>
-                    <p class="senha">Senha</p>
-                    <input type="password" name="senha" placeholder="Digite sua senha" required>
-                    <button type="submit" class="botao-logar">Login</button>
-                </form>
-                <div class="cadastre">
-                <p>Não tem cadastro ainda?<br><a href="..\cadastrar-cliente.html" class="cadastro">CADASTRE-SE</a></p>
-                </div>
-            </div>
         </div>
         </section>
         <?php endif; ?>
     </main>
 
 
-<script>
-    window.addEventListener('DOMContentLoaded', function(){
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
         var msg = document.querySelector('.mensagem-erro');
-        if(msg){
-            setTimeout(function(){
+        if (msg) {
+            setTimeout(function() {
                 msg.classList.add('oculto');
             }, 5000);
         }
     });
-</script>
+    </script>
 
 </body>
 

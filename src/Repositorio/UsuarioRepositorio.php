@@ -1,49 +1,41 @@
 <?php
-    class UsuarioRepositorio
+require_once __DIR__ . '/../Modelo/Usuario.php';
+
+class UsuarioRepositorio
+{
+    private $pdo;
+
+    public function __construct(PDO $pdo)
     {
-        private PDO $pdo;
-
-        public function __construct(PDO $pdo)
-        {
-            $this->pdo = $pdo;
-        }
-
-        private function formarObjeto(array $dados): Usuario
-        {
-            return new Usuario((int)$dados['id'], $dados['nome'], $dados['email'], $dados['senha'], $dados['perfil']);
-        }
-
-       public function salvar(Usuario $usuario) {
-            $sql = "INSERT INTO usuarios (nome, email, senha, perfil) VALUES (:nome, :email, :senha, :perfil)";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':nome', $usuario->getNome());
-            $stmt->bindValue(':email', $usuario->getEmail());
-            $stmt->bindValue(':senha', password_hash($usuario->getSenha(), PASSWORD_DEFAULT));
-            $stmt->bindValue(':perfil', $usuario->getPerfil());
-            $stmt->execute();
-        }
-
-        public function buscarPorEmail($email) {
-            $sql = "SELECT * FROM usuarios WHERE email = :email";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':email', $email);
-            $stmt->execute();
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($row) {
-                return new Usuario($row['id'], $row['nome'], $row['email'], $row['senha'], $row['perfil']);
-            }
-
-            return null;
-        }
-
-        public function autenticar($email, $senhaDigitada) {
-            $usuario = $this->buscarPorEmail($email);
-            if ($usuario && password_verify($senhaDigitada, $usuario->getSenha())) {
-                return true;
-            }
-            return false;
-        }
+        $this->pdo = $pdo;
     }
 
+    public function salvar(Usuario $usuario)
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO usuarios (nome, perfil, email, senha) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$usuario->getNome(), $usuario->getPerfil(), $usuario->getEmail(), $usuario->getSenha()]);
+        return $this->pdo->lastInsertId();
+    }
+
+    public function buscarPorId($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt->execute([$id]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $data ? new Usuario($data['id'], $data['nome'], $data['perfil'], $data['email'], $data['senha']) : null;
+    }
+
+    public function autenticar($email, $senha)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
+        $stmt->execute([$email]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($data && password_verify($senha, $data['senha'])) {
+            return new Usuario($data['id'], $data['nome'], $data['perfil'], $data['email'], $data['senha']);
+        }
+
+        return null;
+    }
+}
 ?>

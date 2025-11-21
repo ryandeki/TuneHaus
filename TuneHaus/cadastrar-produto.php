@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once __DIR__ . '/../src/conexao-bd.php';
 require_once __DIR__ . '/../src/Modelo/Produto.php';
 require_once __DIR__ . '/../src/Repositorio/ProdutoRepositorio.php';
@@ -56,6 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             $repo->salvar($produto);
+
+            $_SESSION['alert'] = 'cadastrado';
+
             header('Location: listar-produto.php');
             exit;
         } catch (Exception $e) {
@@ -67,75 +72,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TUNEHAUS - Cadastrar Produto</title>
-<link rel="stylesheet" href="css/cadastrar-produto.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUNEHAUS - Cadastrar Produto</title>
+    <link rel="stylesheet" href="css/cadastrar-produto.css">
 </head>
+
 <body>
-<header>
-    <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
-    <nav>
-        <ul class="lista-produtos">
-            <li><a href="home-logado.html">home</a></li>
-            <?php foreach ($categorias as $cat): ?>
-                <li><a href="listar-produto.php?categoria=<?= $cat['id'] ?>"><?= htmlspecialchars($cat['nome']) ?></a></li>
-            <?php endforeach; ?>
-            <li><a href="logout.php" class="botao-logout">logout</a></li>
-        </ul>
-    </nav>
-</header>
-
-<main>
-<section class="cadastro-container">
-    <div class="titulo-imagens">
-        <img src="img/notasmusicais.png" alt="Notas musicais" class="notas-musicais">
-        <h2>CADASTRAR <br> PRODUTOS</h2>
-        <img src="img/notasmusicais2.png" class="notas-musicais-dois">
-    </div>
-
-    <?php if(!empty($erros)): ?>
-        <div class="erros">
-            <ul>
-                <?php foreach($erros as $erro): ?>
-                    <li><?= htmlspecialchars($erro) ?></li>
+    <header>
+        <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
+        <nav>
+            <ul class="lista-produtos">
+                <li><a href="home-logado.html">home</a></li>
+                <?php foreach ($categorias as $cat): ?>
+                <li><a href="listar-produto.php?categoria=<?= $cat['id'] ?>"><?= htmlspecialchars($cat['nome']) ?></a>
+                </li>
                 <?php endforeach; ?>
+                <li><a href="logout.php" class="botao-logout">logout</a></li>
             </ul>
-        </div>
-    <?php endif; ?>
+        </nav>
+    </header>
 
-    <form method="POST" enctype="multipart/form-data" class="form-cadastro">
+    <main>
+        <section class="cadastro-container">
+            <div class="titulo-imagens">
+                <img src="img/notasmusicais.png" alt="Notas musicais" class="notas-musicais">
+                <h2>CADASTRAR <br> PRODUTOS</h2>
+                <img src="img/notasmusicais2.png" class="notas-musicais-dois">
+            </div>
 
-        <label for="categoria_id">Categoria</label>
-        <select name="categoria_id" id="categoria_id" required>
-            <option value="">Selecione a categoria</option>
-            <?php foreach ($categorias as $cat): ?>
-                <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['nome']) ?></option>
-            <?php endforeach; ?>
-        </select>
+            <?php if(!empty($erros)): ?>
+            <div class="erros">
+                <ul>
+                    <?php foreach($erros as $erro): ?>
+                    <li><?= htmlspecialchars($erro) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php endif; ?>
 
-        <label for="nome">Nome</label>
-        <input type="text" name="nome" id="nome" placeholder="Digite o nome do produto" required>
+            <form method="POST" enctype="multipart/form-data" class="form-cadastro">
 
-        <label for="descricao">Descrição</label>
-        <textarea name="descricao" id="descricao" placeholder="Digite a descrição do produto" required></textarea>
+                <label for="categoria_id">Categoria</label>
+                <select name="categoria_id" id="categoria_id" required>
+                    <option value="">Selecione a categoria</option>
+                    <?php foreach ($categorias as $cat): ?>
+                    <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['nome']) ?></option>
+                    <?php endforeach; ?>
+                </select>
 
-        <label for="informacoes">Informações Adicionais</label>
-        <textarea name="informacoes" id="informacoes" placeholder="Digite as informações do produto"></textarea>
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" id="nome" placeholder="Digite o nome do produto" required>
 
-        <label for="preco">Preço</label>
-        <input type="number" name="preco" id="preco" placeholder="R$" required>
+                <label for="descricao">Descrição</label>
+                <textarea name="descricao" id="descricao" placeholder="Digite a descrição do produto"
+                    required></textarea>
 
-        <label for="musica">Sugestão de música</label>
-        <input type="url" name="musica" id="musica" placeholder="https://exemplo.com.br">
+                <label for="informacoes">Informações Adicionais</label>
+                <textarea name="informacoes" id="informacoes" placeholder="Digite as informações do produto"></textarea>
 
-        <label for="imagem">Escolher imagem</label>
-        <input type="file" name="imagem" id="imagem" accept="image/*">
+                <label for="preco">Preço</label>
+                <input type="number" name="preco" id="preco" placeholder="R$" required>
 
-        <button type="submit" class="botao">CADASTRAR PRODUTO</button>
-    </form>
-</section>
-</main>
+                <label for="musica">Sugestão de música</label>
+                <input type="url" name="musica" id="musica" placeholder="https://exemplo.com.br">
+
+                <label for="imagem">Escolher imagem</label>
+                <input type="file" name="imagem" id="imagem" accept="image/*">
+
+                <button type="submit" class="botao">CADASTRAR PRODUTO</button>
+            </form>
+        </section>
+    </main>
 </body>
+
 </html>

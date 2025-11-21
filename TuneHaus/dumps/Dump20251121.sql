@@ -68,19 +68,3 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`,`nome`,`perfil`,`email`,`senha`,`created_at`,`updated_at`) VALUES
 (1,'Administrador','admin','admin@exemplo.com','$2y$10$AEyG8/pblS9bb8CnK.1i8u9xxTVdWizIpNBAgSe/dxTfnkZCGSIO6','2025-10-06 21:00:22','2025-10-06 21:00:22');
 
---
--- Table structure for table `clientes`
---
-DROP TABLE IF EXISTS `clientes`;
-CREATE TABLE `clientes` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `usuario_id` int unsigned NOT NULL,
-  `nome` varchar(50) NOT NULL,
-  `sobrenome` varchar(100) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `cpf` varchar(14) NOT NULL UNIQUE,
-  `data_nascimento` date NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`usuario_id`) REFERENCES `usuarios`(`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-

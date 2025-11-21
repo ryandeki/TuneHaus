@@ -89,26 +89,24 @@ main {
   display: inline-flex;
   flex-direction: column;
   gap: 15px;
-  width: 90%;
+  width: 80%;
   position: relative;
   margin: 0 auto;
 }
 
 .form-cadastro a {
-
   text-decoration: none;
   color: white;
-
 }
 
 .form-cadastro input {
   width: 90%;
-  padding: 10px;
+  padding: 12px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
+  box-sizing: border-box;
 }
-
 
 .linha-dupla {
   display: flex;
@@ -131,29 +129,25 @@ label {
 }
 
 .botao {
-
   margin-top: 10px;
   background-color: rgba(53, 0, 51, 1);
   border: none;
-  font-size: 1rem;
+  font-size: 14px;
   cursor: pointer;
   text-decoration: none;
-  display: flex;
-  padding: 12px 24px;
+  display: block;
+  width: 90%;
+  padding: 12px 10px;
   border-radius: 6px;
-  width: 85.8%;
-  height: 50px;
   color: white;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
 .botao:hover {
-
   background-color: #7c3ea3;
-
 }
 
 .swal2-icon.swal2-success {

@@ -142,8 +142,16 @@ if ($categoriaId) {
     <?php if (isset($_SESSION['alert'])): ?>
     <script>
     Swal.fire({
-        title: "<?= $_SESSION['alert'] === 'excluido' ? 'Excluído!' : 'Atualizado!' ?>",
-        text: "<?= $_SESSION['alert'] === 'excluido' ? 'O produto foi removido com sucesso.' : 'O produto foi editado com sucesso.' ?>",
+        title: "<?= 
+            $_SESSION['alert'] === 'excluido' ? 'Excluído!' :
+            ($_SESSION['alert'] === 'atualizado' ? 'Atualizado!' :
+            'Cadastrado!') ?>",
+
+        text: "<?= 
+            $_SESSION['alert'] === 'excluido' ? 'O produto foi removido com sucesso.' :
+            ($_SESSION['alert'] === 'atualizado' ? 'O produto foi editado com sucesso.' :
+            'O produto foi cadastrado com sucesso.') ?>",
+
         icon: "success",
         background: "rgba(233, 195, 255, 1)",
         color: "#292929",

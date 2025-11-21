@@ -1,70 +1,40 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../src/conexao-bd.php'; // deve definir $pdo
+require_once __DIR__ . '/../src/conexao-bd.php';
 require_once __DIR__ . '/../src/Modelo/Usuario.php';
-require_once __DIR__ . '/../src/Modelo/Cliente.php';
 require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
-require_once __DIR__ . '/../src/Repositorio/ClienteRepositorio.php';
 
 $usuarioRepo = new UsuarioRepositorio($pdo);
-$clienteRepo = new ClienteRepositorio($pdo);
-
 $erros = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = trim($_POST['nome'] ?? '');
-    $sobrenome = trim($_POST['sobrenome'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $senha = trim($_POST['senha'] ?? '');
     $confirmaSenha = trim($_POST['confirma_senha'] ?? '');
-    $cpf = trim($_POST['cpf'] ?? '');
-    $dataNascimento = trim($_POST['data_nascimento'] ?? '');
 
-    // Validações
-    if ($nome === '')
-        $erros[] = 'Nome é obrigatório.';
-    if ($sobrenome === '')
-        $erros[] = 'Sobrenome é obrigatório.';
-    if ($email === '')
-        $erros[] = 'E-mail é obrigatório.';
-    if ($senha === '')
-        $erros[] = 'Senha é obrigatória.';
-    if ($senha !== $confirmaSenha)
-        $erros[] = 'As senhas não conferem.';
-    if ($cpf === '')
-        $erros[] = 'CPF é obrigatório.';
-    if ($dataNascimento === '')
-        $erros[] = 'Data de nascimento é obrigatória.';
+    // Validações básicas
+    if ($email === '') $erros[] = 'E-mail é obrigatório.';
+    if ($senha === '') $erros[] = 'Senha é obrigatória.';
+    if ($senha !== $confirmaSenha) $erros[] = 'As senhas não conferem.';
 
-    // Verifica se já existe usuário com o email
+    // Verifica se o email já está cadastrado
     $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
     $stmt->execute([$email]);
-    if ($stmt->fetch())
-        $erros[] = 'E-mail já cadastrado.';
-
-    // Verifica se já existe cliente com o mesmo CPF
-    $stmt2 = $pdo->prepare("SELECT id FROM clientes WHERE cpf = ?");
-    $stmt2->execute([$cpf]);
-    if ($stmt2->fetch())
-        $erros[] = 'CPF já cadastrado.';
+    if ($stmt->fetch()) $erros[] = 'E-mail já cadastrado.';
 
     if (empty($erros)) {
         try {
-            // 1) Cria usuário
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-            $usuario = new Usuario(null, $nome, 'user', $email, $senhaHash);
-            $usuarioId = (int) $usuarioRepo->salvar($usuario);
+            $usuario = new Usuario(null, '', 'user', $email, $senhaHash);
+            $usuarioRepo->salvar($usuario);
 
-            // 2) Cria cliente
-            $cliente = new Cliente($usuarioId, $nome, $sobrenome, $email, $dataNascimento, $cpf);
-            $clienteRepo->salvar($cliente);
-
-            // Redireciona para a mesma página com parâmetro de sucesso
-            header('Location: cadastrar-cliente.php?sucesso=1');
+            // Define flag de sucesso na sessão para alert JS
+            $_SESSION['sucesso_cadastro'] = true;
+            header('Location: cadastrar-cliente.php');
             exit;
         } catch (Exception $e) {
-            $erros[] = 'Erro ao cadastrar cliente: ' . $e->getMessage();
+            $erros[] = 'Erro ao cadastrar usuário: ' . $e->getMessage();
         }
     }
 }
@@ -103,10 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h2>CADASTRE-SE!</h2>
             </div>
 
-            <?php if (!empty($erros)): ?>
+            <?php if(!empty($erros)): ?>
             <div class="erros">
                 <ul>
-                    <?php foreach ($erros as $erro): ?>
+                    <?php foreach($erros as $erro): ?>
                     <li><?= htmlspecialchars($erro) ?></li>
                     <?php endforeach; ?>
                 </ul>
@@ -114,46 +84,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
 
             <form method="POST" class="form-cadastro">
-                <div class="linha-dupla">
-                    <div>
-                        <label>Nome</label>
-                        <input type="text" name="nome" value="<?= htmlspecialchars($_POST['nome'] ?? '') ?>" required>
-                    </div>
-                    <div>
-                        <label>Sobrenome</label>
-                        <input type="text" name="sobrenome" value="<?= htmlspecialchars($_POST['sobrenome'] ?? '') ?>"
-                            required>
-                    </div>
-                </div>
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
+                    required>
 
-                <label>Email</label>
-                <input type="email" name="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" id="senha" value="<?= htmlspecialchars($_POST['senha'] ?? '') ?>"
+                    required>
 
-                <div class="linha-dupla">
-                    <div>
-                        <label>Data de nascimento</label>
-                        <input type="date" name="data_nascimento"
-                            value="<?= htmlspecialchars($_POST['data_nascimento'] ?? '') ?>" required>
-                    </div>
-                    <div>
-                        <label>CPF</label>
-                        <input type="text" name="cpf" value="<?= htmlspecialchars($_POST['cpf'] ?? '') ?>" required>
-                    </div>
-                </div>
-
-                <label>Senha</label>
-                <input type="password" name="senha" required>
-
-                <label>Confirme a senha</label>
-                <input type="password" name="confirma_senha" required>
+                <label for="confirma_senha">Confirme a senha</label>
+                <input type="password" name="confirma_senha" id="confirma_senha" required>
 
                 <button type="submit" class="botao">CONCLUIR CADASTRO</button>
             </form>
         </section>
     </main>
 
-    <!-- Alerta SweetAlert após cadastro bem-sucedido -->
-    <?php if (isset($_GET['sucesso']) && $_GET['sucesso'] == '1'): ?>
+    <?php if(!empty($_SESSION['sucesso_cadastro'])): 
+        unset($_SESSION['sucesso_cadastro']); ?>
     <script>
     Swal.fire({
         title: 'Cadastrado!',

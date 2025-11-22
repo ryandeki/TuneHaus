@@ -1,14 +1,10 @@
 header {
-  background-image: linear-gradient(
-      to right,
-      rgba(128, 0, 128, 0.08) 1px,
-      transparent 1px
-    ),
-    linear-gradient(to bottom, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
+  background: rgba(233, 195, 255, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
   background-size: 10px 10px;
-  position: relative;
-  margin: 0;
-  padding: 0;
 }
 
 .logo {
@@ -16,17 +12,6 @@ header {
   margin: -10px;
   margin-left: 5px;
   text-shadow: 0px 5px 5px #585858;
-}
-
-.botao-login {
-  text-decoration: none;
-  border: 2px solid rgba(53, 0, 51, 1);
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: rgba(53, 0, 51, 1);
-  margin-top: 0px;
-  background-color: white;
-  font-weight: bold;
 }
 
 /* menu e submenu */
@@ -50,7 +35,7 @@ nav .menu-principal > li > a {
 }
 
 .botao-logar {
-  height: 70px;
+  height: 80px;
 }
 
 body {
@@ -59,13 +44,6 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
 }
 
 .cabecalho {
@@ -199,101 +177,194 @@ header {
   padding: 4px;
 }
 
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-}
-
-.cadastro-container {
-  width: 700px;
-  margin: 50px auto;
-  background: rgba(247, 247, 247, 1);
-  padding: 30px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  position: relative;
-}
-
-.cadastro-container h2 {
-  color: rgba(53, 0, 51, 1);
-  margin-bottom: 25px;
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-
-.form-cadastro {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 80%;
-  position: relative;
-  margin: 0 auto;
-}
-
-.form-cadastro a {
+.botao-login {
   text-decoration: none;
-  color: white;
+  border: 2px solid rgba(53, 0, 51, 1);
+  padding: 20px;
+  border-radius: 5px;
+  color: rgba(53, 0, 51, 1);
+  margin-top: 0px;
+  font-weight: bold;
 }
 
-.form-cadastro input {
-  width: 100%;
-  padding: 12px 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-.linha-dupla {
-  display: flex;
-  gap: 15px;
-  width: 94.5%;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
 }
 
-.linha-dupla div {
-  flex: 1;
+nav .lista-produtos {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav .lista-produtos li a {
+  text-decoration: none;
+  color: rgba(53, 0, 51, 1);
+  text-transform: lowercase;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+}
+
+.banner {
+  background: url("../img/fundoinicial.jpg") center/cover no-repeat;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.banner .overlay {
+  text-align: center;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-label {
-  display: block;
-  text-align: left;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-  font-weight: 500;
+.banner h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
 }
 
-.botao {
-  margin-top: 10px;
-  background-color: rgba(53, 0, 51, 1);
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  text-decoration: none;
-  display: block;
+.banner p {
+  font-size: 1rem;
+}
+
+.produtos {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding: 60px 120px;
+  justify-content: center;
+  align-items: center;
+}
+
+.linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
   width: 100%;
-  padding: 12px 10px;
-  border-radius: 6px;
+  max-width: 1200px;
+}
+
+.linha.invertida {
+  flex-direction: row-reverse;
+}
+
+.texto1 {
+  max-width: 1000px;
+  text-align: left;
+}
+
+.texto1 h2 {
+  font-size: 40px;
+  margin-bottom: 5px;
+  color: #000;
+}
+
+.texto1 p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.botao1 {
+  background-color: #4b004b;
   color: white;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 8px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 15px;
+  display: inline-block;
 }
 
-.botao:hover {
-  background-color: #7c3ea3;
+.botao1:hover {
+  background-color: #650065;
 }
 
-.swal2-icon.swal2-success {
-  border-color: #40023c;
+.texto2 {
+  max-width: 300px;
+  text-align: left;
 }
 
-.swal2-icon.swal2-success .swal2-success-circular-line-left,
-.swal2-icon.swal2-success .swal2-success-circular-line-right,
-.swal2-icon.swal2-success .swal2-success-fix {
-  background-color: #40023c;
-  border-color: #40023c;
+.texto2 h2 {
+  font-size: 40px;
+  margin-bottom: 5px;
+  color: #000;
+}
+
+.texto2 p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* SLOT 1 */
+.produto .imagem1,
+.produto .imagem2 {
+  border: 2px solid black;
+  padding: 20px;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* IMAGENS DOS SLOTS (igual para os dois) */
+.imagem1 img,
+.imagem2 img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.botao2 {
+  background-color: #4b004b;
+  color: white;
+  padding: 8px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 15px;
+  display: inline-block;
+}
+
+.botao2:hover {
+  background-color: #650065;
+}
+
+.editar {
+  background-color: #e0ae22;
+  color: white;
+  padding: 8px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 15px;
+  display: inline-block;
+}
+
+.editar:hover {
+  background-color: #e0ae22;
 }

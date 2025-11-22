@@ -2,6 +2,7 @@
 session_start();
 $usuarioLogado = $_SESSION['usuario'] ?? null;
 $erro = $_GET['erro'] ?? '';
+
 ?>
 
 <!DOCTYPE html>
@@ -16,20 +17,38 @@ $erro = $_GET['erro'] ?? '';
 </head>
 
 <body>
-    <header>
+  <header>
         <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
         <nav>
-            <ul class="lista-produtos">
-                <li><a href="home-deslogado.html">home</a></li>
-                <li><a href="#">guitarras</a></li>
-                <li><a href="#">violões</a></li>
-                <li><a href="#">baixos</a></li>
-                <li><a href="#">teclados</a></li>
-                <li><a href="#">flautas</a></li>
-                <li><a href="login.php" class="botao-login">Login</a></li>
+            <ul class="menu-principal">
+
+                <li><a href="home.php">Home</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Produtos ▾</a>
+
+                    <ul class="submenu">
+                        <li><a href="listar-produto.php">Todos</a></li>
+                        <li><a href="listar-produto.php?categoria=1">Guitarras</a></li>
+                        <li><a href="listar-produto.php?categoria=2">Violões</a></li>
+                        <li><a href="listar-produto.php?categoria=3">Baixos</a></li>
+                        <li><a href="listar-produto.php?categoria=4">Teclados</a></li>
+                        <li><a href="listar-produto.php?categoria=5">Flautas</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="html/suporte.html">Suporte</a></li>
+
+                <li>
+                    <form action="login.php" method="POST" class="form-login">
+                        <button type="submit" class="botao-login">login</button>
+                    </form>
+                </li>
+
             </ul>
         </nav>
     </header>
+
 
     <main class="main">
         <?php

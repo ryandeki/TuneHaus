@@ -3,10 +3,10 @@
     require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
     require_once __DIR__ . '/../src/Modelo/Usuario.php';
 
-    $email = 'mateo@exemplo.com';
+    $email = 'rafa@exemplo.com';
     $senha = '1234';
-    $nome = 'Mateo';
-    $perfil = 'User';
+    $nome = 'Rafa';
+    $perfil = 'Admin';
 
     $repo = new UsuarioRepositorio($pdo);
 
@@ -15,7 +15,7 @@
         exit;
     }
 
-    $usuario = new Usuario(0, $nome, $email, $senha, $perfil);
+    $usuario = new Usuario(0, $nome, $perfil, $email, $senha);
     $repo->salvar($usuario);
 
     echo "Usuário inserido: {$email}\n";

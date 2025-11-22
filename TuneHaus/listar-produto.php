@@ -1,7 +1,9 @@
 <?php
 session_start();
 
+require_once __DIR__ . '/../src/Modelo/Usuario.php';
 require_once __DIR__ . '/../src/conexao-bd.php';
+require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
 require_once __DIR__ . '/../src/Repositorio/ProdutoRepositorio.php';
 
 if (!isset($_SESSION['usuario'])) {
@@ -9,7 +11,13 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-$usuarioLogado = $_SESSION['usuario'];
+$usuarioLogadoEmail = $_SESSION['usuario'];
+
+$repoUser = new UsuarioRepositorio($pdo);
+$usuario = $repoUser->buscarPorEmail($usuarioLogadoEmail);
+
+$perfil = $usuario->getPerfil();
+$usuarioLogado = $usuario->getNome();
 $repo = new ProdutoRepositorio($pdo);
 
 $categoriaId = isset($_GET['categoria']) ? (int) $_GET['categoria'] : null;
@@ -43,30 +51,65 @@ if ($categoriaId) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
+
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$logado = isset($_SESSION["usuario"]);
+$perfil = $_SESSION["perfil"] ?? null;
+?>
+
+
     <header>
-        <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
-        <nav>
-            <ul class="lista-produtos">
-                <li><a href="html/home-logado.html">Home</a></li>
-                <li><a href="listar-produto.php?categoria=1">Guitarras</a></li>
-                <li><a href="listar-produto.php?categoria=2">Violões</a></li>
-                <li><a href="listar-produto.php?categoria=3">Baixos</a></li>
-                <li><a href="listar-produto.php?categoria=4">Teclados</a></li>
-                <li><a href="listar-produto.php?categoria=5">Flautas</a></li>
+    <div class="cabecalho">
+        TUNEHAUS 
+        <img src="img/logopng.png" alt="Logo do site" class="logo">
+    </div>
+
+    <nav>
+        <ul class="menu-principal">
+
+            <li><a href="home.php">Home</a></li>
+
+            <?php if ($logado && $perfil === 'Admin'): ?>
+                <li><a href="listar-clientes.php">Clientes</a></li>
+            <?php endif; ?>
+
+            <li class="dropdown">
+                <a href="#">Produtos ▾</a>
+                <ul class="submenu">
+                    <li><a href="listar-produto.php">Todos</a></li>
+                    <li><a href="listar-produto.php?categoria=1">Guitarras</a></li>
+                    <li><a href="listar-produto.php?categoria=2">Violões</a></li>
+                    <li><a href="listar-produto.php?categoria=3">Baixos</a></li>
+                    <li><a href="listar-produto.php?categoria=4">Teclados</a></li>
+                    <li><a href="listar-produto.php?categoria=5">Flautas</a></li>
+                </ul>
+            </li>
+
+            <li><a href="suporte.php">Suporte</a></li>
+
+            <?php if ($logado): ?>
                 <li>
-                    <form action="logout.php" method="POST" style="display:inline">
-                        <button type="submit" class="botao-logout">Logout</button>
+                    <form action="logout.php" method="POST">
+                        <button type="submit" class="botao-logout">logout</button>
                     </form>
                 </li>
-            </ul>
-        </nav>
-    </header>
+            <?php else: ?>
+                <li><a href="login.php" class="botao-login">login</a></li>
+            <?php endif; ?>
 
+        </ul>
+    </nav>
+    </header>
     <main>
         <div class="topo">
             <p>Bem-vindo, <strong><?= htmlspecialchars($usuarioLogado) ?></strong>!</p>
+            <?php if ($perfil === 'Admin'): ?>
             <h1>Painel Administrativo</h1>
+            <?php endif; ?>
             <div class="titulo-com-linhas">
                 <div class="linha"></div>
                 <h2><?= htmlspecialchars($tituloPagina) ?></h2>
@@ -77,16 +120,20 @@ if ($categoriaId) {
         <section class="produtos-container">
             <?php if (!empty($produtos)): ?>
             <?php foreach ($produtos as $produto): ?>
+            <a href="produto.php?id=<?= $produto->getId() ?>" class="link-card">    
             <div class="produto-card">
                 <?php
-                        $img = $produto->getImagem();
-                        $caminhoImagem = $img ? 'uploads/' . $img : 'img/nao-encontrada.jpg';
-                        ?>
+                    $img = $produto->getImagem();
+                    $caminhoImagem = $img ? 'uploads/' . $img : 'img/nao-encontrada.jpg';
+                ?>
                 <img src="<?= htmlspecialchars($caminhoImagem) ?>" alt="<?= htmlspecialchars($produto->getNome()) ?>">
                 <h3><?= htmlspecialchars($produto->getNome()) ?></h3>
                 <p><?= htmlspecialchars($produto->getDescricao()) ?></p>
                 <p class="preco">R$ <?= number_format($produto->getPreco(), 2, ",", ".") ?></p>
+            </a>
 
+                <!-- SOMENTE ADMIN VÊ OS BOTÕES -->
+                <?php if ($perfil === 'Admin'): ?>
                 <div class="botoes">
                     <form action="editar-produto.php" method="GET" style="display:inline;">
                         <input type="hidden" name="id" value="<?= $produto->getId() ?>">
@@ -98,6 +145,7 @@ if ($categoriaId) {
                         <button type="submit" class="btremover btn-excluir">Remover</button>
                     </form>
                 </div>
+                <?php endif; ?>
             </div>
             <?php endforeach; ?>
             <?php else: ?>
@@ -105,9 +153,15 @@ if ($categoriaId) {
             <?php endif; ?>
         </section>
 
-        <div class="acoes">
-            <button class="btcadastrar" onclick="window.location='cadastrar-produto.php'">CADASTRAR PRODUTO</button>
-        </div>
+       <?php if ($perfil === 'Admin'): ?>
+            <div class="acoes">
+                <button class="btcadastrar" onclick="window.location='cadastrar-produto.php'">CADASTRAR PRODUTO</button>
+                <br>
+                <button class="btgerar" onclick="window.location='gerar-relatorio-produtos.php'">
+                    GERAR RELATÓRIO PDF
+                </button>
+            </div>
+        <?php endif; ?>
     </main>
 
     <script>
@@ -142,16 +196,8 @@ if ($categoriaId) {
     <?php if (isset($_SESSION['alert'])): ?>
     <script>
     Swal.fire({
-        title: "<?= 
-            $_SESSION['alert'] === 'excluido' ? 'Excluído!' :
-            ($_SESSION['alert'] === 'atualizado' ? 'Atualizado!' :
-            'Cadastrado!') ?>",
-
-        text: "<?= 
-            $_SESSION['alert'] === 'excluido' ? 'O produto foi removido com sucesso.' :
-            ($_SESSION['alert'] === 'atualizado' ? 'O produto foi editado com sucesso.' :
-            'O produto foi cadastrado com sucesso.') ?>",
-
+        title: "<?= $_SESSION['alert'] === 'excluido' ? 'Excluído!' : 'Atualizado!' ?>",
+        text: "<?= $_SESSION['alert'] === 'excluido' ? 'O produto foi removido com sucesso.' : 'O produto foi editado com sucesso.' ?>",
         icon: "success",
         background: "rgba(233, 195, 255, 1)",
         color: "#292929",

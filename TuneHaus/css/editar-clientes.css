@@ -1,0 +1,133 @@
+/* -------------------- */
+/*   HEADER PADRÃO      */
+/* -------------------- */
+
+header {
+  background-image: linear-gradient(
+      to right,
+      rgba(128, 0, 128, 0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
+  background-size: 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  margin: 0;
+}
+
+.logo {
+  width: 45px;
+  margin-left: 10px;
+  text-shadow: 0px 5px 5px #585858;
+}
+
+.cabecalho {
+  font-size: 48px;
+  font-weight: bold;
+  color: rgba(53, 0, 51, 1);
+  text-shadow: 0px 5px 5px #585858;
+}
+
+/* ----------------------------- */
+/*     TELA DE EDIÇÃO CLIENTE    */
+/* ----------------------------- */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  margin: 0;
+}
+
+.editar-container {
+  width: 700px;
+  margin: 50px auto;
+  background: rgba(247, 247, 247, 1);
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+.titulo-imagens {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.titulo-imagens h2 {
+  color: #4b254b;
+  font-weight: bold;
+  margin: 0;
+}
+
+.titulo-imagens img {
+  width: 200px;
+}
+
+.notas-musicais {
+  transform: rotate(15deg);
+}
+
+.notas-musicais-dois {
+  transform: rotate(-15deg);
+}
+
+.form-editar {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.form-editar label {
+  text-align: left;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.form-editar input,
+.form-editar select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Botões */
+.botao {
+  background-color: rgba(53, 0, 51, 1);
+  color: white;
+  padding: 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.botao:hover {
+  background-color: #7c3ea3;
+}
+
+.botao-voltar {
+  display: block;
+  margin-top: 15px;
+  background-color: rgb(180, 180, 180);
+  color: black;
+  padding: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Mensagens de erro */
+.erros p {
+  color: red;
+  font-weight: bold;
+}

@@ -10,12 +10,86 @@ class UsuarioRepositorio
         $this->pdo = $pdo;
     }
 
-    public function salvar(Usuario $usuario)
+        public function salvar(Usuario $usuario)
     {
+        $senhaPlain = $usuario->getSenha();
+        $senhaHash = password_hash($senhaPlain, PASSWORD_DEFAULT);
+
         $stmt = $this->pdo->prepare("INSERT INTO usuarios (nome, perfil, email, senha) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$usuario->getNome(), $usuario->getPerfil(), $usuario->getEmail(), $usuario->getSenha()]);
+        $stmt->execute([$usuario->getNome(), $usuario->getPerfil(), $usuario->getEmail(), $senhaHash]);
         return $this->pdo->lastInsertId();
     }
+
+        public function atualizar(Usuario $usuario)
+    {
+        $stmt = $this->pdo->prepare("
+            UPDATE usuarios 
+            SET nome = ?, email = ?, perfil = ?
+            WHERE id = ?
+        ");
+
+        return $stmt->execute([
+            $usuario->getNome(),
+            $usuario->getEmail(),
+            $usuario->getPerfil(),
+            $usuario->getId()
+        ]);
+    }
+
+    public function excluir($id)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM usuarios WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
+
+
+   
+    public function buscarTodos(): array
+    {
+        $stmt = $this->pdo->query("SELECT * FROM usuarios ORDER BY nome ASC");
+        $usuarios = [];
+
+        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $usuarios[] = new Usuario(
+                $linha['id'],
+                $linha['nome'],
+                $linha['perfil'],
+                $linha['email'],
+                $linha['senha'] ?? ""
+            );
+        }
+
+        return $usuarios;
+    }
+
+
+        public function contarUsuarios()
+    {
+        return $this->pdo->query("SELECT COUNT(*) FROM usuarios")->fetchColumn();
+    }
+
+    public function buscarPaginado($offset, $limit)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM usuarios ORDER BY id DESC LIMIT :offset, :limit");
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $usuarios = [];
+
+        while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $usuarios[] = new Usuario(
+                $data['id'],
+                $data['nome'],
+                $data['perfil'],
+                $data['email'],
+                $data['senha']
+            );
+        }
+
+        return $usuarios;
+    }
+
 
     public function buscarPorId($id)
     {
@@ -37,5 +111,17 @@ class UsuarioRepositorio
 
         return null;
     }
+
+    public function buscarPorEmail($email)
+    {
+    $stmt = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
+    $stmt->execute([$email]);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $data
+        ? new Usuario($data['id'], $data['nome'], $data['perfil'], $data['email'], $data['senha'])
+        : null;
+    }
+
 }
 ?>

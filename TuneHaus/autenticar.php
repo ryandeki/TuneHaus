@@ -23,18 +23,18 @@ if ($email === '' || $senha === '') {
 
 $repo = new UsuarioRepositorio($pdo);
 
-//Credenciais corretas
-if ($repo->autenticar($email, $senha)) {
-    //Regenera a sessão 
+$usuario = $repo->buscarPorEmail($email); // você deve ter esse método
+
+if ($usuario && $repo->autenticar($email, $senha)) {
     session_regenerate_id(true);
-    //Setar a sessão com o email do usuário
+
     $_SESSION['usuario'] = $email;
-    // echo '<pre>';
-    // var_dump($_SESSION);
-    // echo '</pre>';
-    header('Location:listar-produto.php');
+    $_SESSION['perfil'] = $usuario->getPerfil(); // <<< AQUI ESTÁ O SEGREDO
+
+    header('Location: home.php');
     exit;
 }
+
 
 //Falha nas credenciais
 header('Location: login.php?erro=credenciais');

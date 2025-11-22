@@ -6,9 +6,10 @@ header {
     ),
     linear-gradient(to bottom, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
   background-size: 10px 10px;
-  position: relative;
-  margin: 0;
-  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
 }
 
 .logo {
@@ -18,27 +19,28 @@ header {
   text-shadow: 0px 5px 5px #585858;
 }
 
-nav .lista-produtos {
+/* menu e submenu */
+/* menu principal*/
+nav .menu-principal {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 25px;
+  align-items: center;
+  margin: 0;
 }
 
-nav .lista-produtos li a {
+nav .menu-principal > li > a {
   text-decoration: none;
   color: rgba(53, 0, 51, 1);
-  text-transform: lowercase;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: bold;
+  text-transform: lowercase;
+  padding: 5px 0;
+  display: inline-block;
 }
 
-.botao-login {
-  text-decoration: none;
-  border: 1px solid rgba(53, 0, 51, 1);
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: rgba(53, 0, 51, 1);
-  margin-top: -5px;
+.botao-logar {
+  height: 70px;
 }
 
 body {
@@ -49,18 +51,135 @@ body {
   padding: 0;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-}
-
 .cabecalho {
   font-size: 48px;
   font-weight: bold;
   color: rgba(53, 0, 51, 1);
   text-shadow: 0px 5px 5px #585858;
+}
+
+/* dropdown */
+.dropdown {
+  position: relative;
+}
+
+.submenu {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  padding: 10px 0;
+  list-style: none;
+  min-width: 150px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.25s ease-in-out;
+  z-index: 50;
+}
+
+.submenu li {
+  padding: 5px 15px;
+}
+
+.submenu li a {
+  color: rgba(53, 0, 51, 1);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.submenu li a:hover {
+  color: rgb(156, 0, 146);
+}
+
+.dropdown:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lista-produtos {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.has-submenu {
+  position: relative;
+}
+
+.submenu {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 160px;
+  padding: 10px 0;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+
+  pointer-events: none;
+}
+
+.dropdown:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.submenu li a {
+  display: block;
+  padding: 6px 12px;
+  color: black;
+}
+
+.has-submenu.open .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown > a {
+  display: inline-block;
+  padding-bottom: 8px;
+}
+
+.submenu {
+  margin-top: 0;
+}
+
+.dropdown:hover > a {
+  color: rgb(156, 0, 146);
+}
+
+.botao-logout,
+.botao-logout:link,
+.botao-logout:visited,
+.botao-logout:hover,
+.botao-logout:active {
+  color: red;
+  background-color: transparent;
+  border: 2px solid red;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
+  padding: 4px;
 }
 
 main {
@@ -129,14 +248,15 @@ form,
   background-color: #7c3ea3;
 }
 
-.cadastro, .link-adm{
+.cadastro,
+.link-adm {
   text-decoration: none;
   color: #7c3ea3;
   font-weight: bold;
   font-size: 15px;
 }
 
-.link-adm{
+.link-adm {
   text-decoration: underline;
   position: absolute;
   right: 850px;
@@ -201,4 +321,13 @@ form,
   font-size: 20px;
 }
 
-
+.botao-login {
+  text-decoration: none;
+  border: 2px solid rgba(53, 0, 51, 1);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: rgba(53, 0, 51, 1);
+  margin-top: 0px;
+  background-color: white;
+  font-weight: bold;
+}

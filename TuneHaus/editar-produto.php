@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once __DIR__ . '/../src/conexao-bd.php';
 require_once __DIR__ . '/../src/Repositorio/ProdutoRepositorio.php';
@@ -90,18 +91,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$logado = isset($_SESSION["usuario"]);
+$perfil = $_SESSION["perfil"] ?? null;
+?>
+
+
     <header>
-        <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
-        <nav>
-            <ul class="lista-produtos">
-                <li><a href="home-logado.html">home</a></li>
-                <?php foreach ($categorias as $cat): ?>
-                <li><a href="listar-produto.php?categoria=<?= $cat['id'] ?>"><?= htmlspecialchars($cat['nome']) ?></a>
+    <div class="cabecalho">
+        TUNEHAUS 
+        <img src="img/logopng.png" alt="Logo do site" class="logo">
+    </div>
+
+    <nav>
+        <ul class="menu-principal">
+
+            <li><a href="home.php">Home</a></li>
+
+            <?php if ($logado && $perfil === 'Admin'): ?>
+                <li><a href="listar-clientes.php">Clientes</a></li>
+            <?php endif; ?>
+
+            <li class="dropdown">
+                <a href="#">Produtos ▾</a>
+                <ul class="submenu">
+                    <li><a href="listar-produto.php">Todos</a></li>
+                    <li><a href="listar-produto.php?categoria=1">Guitarras</a></li>
+                    <li><a href="listar-produto.php?categoria=2">Violões</a></li>
+                    <li><a href="listar-produto.php?categoria=3">Baixos</a></li>
+                    <li><a href="listar-produto.php?categoria=4">Teclados</a></li>
+                    <li><a href="listar-produto.php?categoria=5">Flautas</a></li>
+                </ul>
+            </li>
+
+            <li><a href="suporte.php">Suporte</a></li>
+
+            <?php if ($logado): ?>
+                <li>
+                    <form action="logout.php" method="POST">
+                        <button type="submit" class="botao-logout">logout</button>
+                    </form>
                 </li>
-                <?php endforeach; ?>
-                <li><a href="logout.php" class="botao-logout">logout</a></li>
-            </ul>
-        </nav>
+            <?php else: ?>
+                <li><a href="login.php" class="botao-login">login</a></li>
+            <?php endif; ?>
+
+        </ul>
+    </nav>
     </header>
 
     <main>

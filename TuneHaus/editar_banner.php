@@ -8,9 +8,8 @@ if (!isset($_SESSION['perfil']) || $_SESSION['perfil'] !== 'Admin') {
     exit;
 }
 
-$mensagem = "";
-
 /* --- SE ENVIAR O FORMULÁRIO --- */
+$mostrar_alerta = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($_FILES['banner']['name'])) {
@@ -29,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = $pdo->prepare("UPDATE home_banner SET imagem = ? WHERE id = 1");
         $sql->execute([$nomeFinal]);
 
-        $mensagem = "Banner atualizado com sucesso!";
+        // Seta para exibir alerta na mesma requisição
+        $mostrar_alerta = true;
     }
 }
 
@@ -42,10 +42,12 @@ $caminho_atual = $banner && $banner['imagem']
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Editar Banner</title>
     <link rel="stylesheet" href="css/editar-home.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <header>
     <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" class="logo"></div>
@@ -60,8 +62,6 @@ $caminho_atual = $banner && $banner['imagem']
             <img src="img/notasmusicais2.png" class="notas-musicais-dois">
         </div>
 
-        <p style="color:green; font-weight:bold;"><?= $mensagem ?></p>
-
         <div class="img-preview">
             <p>Banner atual:</p>
             <img src="<?= $caminho_atual ?>">
@@ -72,9 +72,25 @@ $caminho_atual = $banner && $banner['imagem']
             <input type="file" name="banner" required>
 
             <button class="botao">SALVAR ALTERAÇÕES</button>
-
-                <a href="home.php" class="botao-voltar">Voltar</a>
+            <a href="home.php" class="botao-voltar">Voltar</a>
         </form>
     </section>
 </main>
+
+<?php if ($mostrar_alerta): ?>
+<script>
+Swal.fire({
+    title: "Atualizado!",
+    text: "O banner foi atualizado com sucesso.",
+    icon: "success",
+    background: "rgba(233, 195, 255, 1)",
+    color: "#292929",
+    confirmButtonColor: "#6a1b9a",
+    confirmButtonText: "OK"
+}).then(() => {
+    window.location.href = "home.php"; // redireciona para home.php após clicar em OK
+});
+</script>
+<?php endif; ?>
+
 </html>

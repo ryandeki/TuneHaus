@@ -17,7 +17,7 @@ $erro = $_GET['erro'] ?? '';
 </head>
 
 <body>
-  <header>
+    <header>
         <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
         <nav>
             <ul class="menu-principal">
@@ -37,7 +37,7 @@ $erro = $_GET['erro'] ?? '';
                     </ul>
                 </li>
 
-                <li><a href="html/suporte.html">Suporte</a></li>
+                <li><a href="suporte.php">Suporte</a></li>
 
                 <li>
                     <form action="login.php" method="POST" class="form-login">

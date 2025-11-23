@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-     <header>
+    <header>
         <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
         <nav>
             <ul class="menu-principal">
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </ul>
                 </li>
 
-                <li><a href="html/suporte.html">Suporte</a></li>
+                <li><a href="suporte.php">Suporte</a></li>
 
                 <li>
                     <form action="login.php" method="POST" class="form-login">
@@ -106,16 +106,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" class="form-cadastro">
 
                 <label for="nome">Nome</label>
-                <input type="text" name="nome" id="nome" 
-                    value="<?= htmlspecialchars($_POST['nome'] ?? '') ?>" required>
+                <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($_POST['nome'] ?? '') ?>" required>
 
                 <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" 
-                    value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
+                <input type="email" name="email" id="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
+                    required>
 
                 <label for="senha">Senha</label>
-                <input type="password" name="senha" id="senha" 
-                    value="<?= htmlspecialchars($_POST['senha'] ?? '') ?>" required>
+                <input type="password" name="senha" id="senha" value="<?= htmlspecialchars($_POST['senha'] ?? '') ?>"
+                    required>
 
                 <label for="confirma_senha">Confirme a senha</label>
                 <input type="password" name="confirma_senha" id="confirma_senha" required>

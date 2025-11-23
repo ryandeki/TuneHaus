@@ -2,11 +2,9 @@
    HEADER
 =========================== */
 header {
-  background-image: linear-gradient(
-      to right,
+  background-image: linear-gradient(to right,
       rgba(128, 0, 128, 0.08) 1px,
-      transparent 1px
-    ),
+      transparent 1px),
     linear-gradient(to bottom, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
   background-size: 10px 10px;
   display: flex;
@@ -37,7 +35,8 @@ nav .menu-principal {
   margin: 0;
   padding: 0;
 }
-nav .menu-principal > li > a {
+
+nav .menu-principal>li>a {
   text-decoration: none;
   color: rgba(53, 0, 51, 1);
   font-size: 15px;
@@ -61,6 +60,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .cabecalho {
   font-size: 48px;
   font-weight: bold;
@@ -79,12 +79,14 @@ body {
 .dropdown {
   position: relative;
 }
-.dropdown > a {
+
+.dropdown>a {
   display: inline-block;
   padding-bottom: 8px;
   color: rgba(53, 0, 51, 1);
 }
-.dropdown > a:hover {
+
+.dropdown>a:hover {
   color: rgb(156, 0, 146);
 }
 
@@ -124,6 +126,7 @@ body {
   text-decoration: none;
   font-size: 14px;
 }
+
 .submenu li a:hover {
   color: rgb(156, 0, 146);
   background: #f5e2ff;
@@ -172,6 +175,7 @@ body {
   gap: 10px;
   margin-bottom: 20px;
 }
+
 .form-busca input {
   flex: 1;
   padding: 10px 14px;
@@ -179,6 +183,7 @@ body {
   border: 1px solid #ccc;
   font-size: 15px;
 }
+
 .form-busca button {
   padding: 10px 18px;
   background: #7a14c9;
@@ -189,6 +194,7 @@ body {
   cursor: pointer;
   transition: 0.3s;
 }
+
 .form-busca button:hover {
   background: #a84cff;
 }
@@ -204,6 +210,7 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
+
 .tabela th {
   background: #3d105c;
   color: white;
@@ -211,11 +218,13 @@ body {
   text-align: left;
   font-size: 16px;
 }
+
 .tabela td {
   padding: 12px;
   border-bottom: 1px solid #eee;
   font-size: 15px;
 }
+
 .tabela tr:hover {
   background: #f7e5ff;
 }
@@ -238,15 +247,19 @@ body {
   margin-right: 6px;
   color: white;
 }
+
 .btn.editar {
   background: rgba(224, 174, 34, 1);
 }
+
 .btn.editar:hover {
   background: rgba(224, 174, 34, 0.85);
 }
+
 .btn.excluir {
   background: #cc3333;
 }
+
 .btn.excluir:hover {
   background: #ff5c5c;
 }
@@ -258,6 +271,7 @@ body {
   text-align: center;
   margin-top: 25px;
 }
+
 .paginacao a {
   padding: 8px 14px;
   background: #3d105c;
@@ -268,9 +282,11 @@ body {
   font-size: 14px;
   transition: 0.3s;
 }
+
 .paginacao a:hover {
   background: #a84cff;
 }
+
 .paginacao a.ativa {
   background: #7a14c9;
 }

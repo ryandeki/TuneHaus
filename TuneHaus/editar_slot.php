@@ -15,7 +15,7 @@ if (!isset($_GET['id'])) {
 }
 
 $slot_id = intval($_GET['id']);
-$mensagem = "";
+$mostrar_alerta = false;
 
 /* --- SALVAR SLOT --- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -25,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = $pdo->prepare("UPDATE home_slots SET produto_id = ? WHERE id = ?");
     $sql->execute([$produto_id, $slot_id]);
 
-    $mensagem = "Slot atualizado com sucesso!";
+    // Seta para exibir alerta na mesma requisição
+    $mostrar_alerta = true;
 }
 
 /* --- LISTA DE PRODUTOS --- */
@@ -38,41 +39,60 @@ $slot = $sql->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Editar Slot <?= $slot_id ?></title>
     <link rel="stylesheet" href="css/editar-home.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <header>
     <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" class="logo"></div>
 </header>
+
 <body>
-<main>
-    <section class="editar-container">
+    <main>
+        <section class="editar-container">
 
-        <div class="titulo-imagens">
-            <img src="img/notasmusicais.png" class="notas-musicais">
-            <h2>EDITAR<br>SLOT</h2>
-            <img src="img/notasmusicais2.png" class="notas-musicais-dois">
-        </div>
+            <div class="titulo-imagens">
+                <img src="img/notasmusicais.png" class="notas-musicais">
+                <h2>EDITAR<br>SLOT</h2>
+                <img src="img/notasmusicais2.png" class="notas-musicais-dois">
+            </div>
 
-        <p style="color:green; font-weight:bold;"><?= $mensagem ?></p>
-
-        <form method="POST" class="form-editar">
-            <label>Selecione um produto:</label>
-            <select name="produto_id">
-                <?php foreach ($produtos as $p): ?>
+            <form method="POST" class="form-editar">
+                <label>Selecione um produto:</label>
+                <select name="produto_id">
+                    <?php foreach ($produtos as $p): ?>
                     <option value="<?= $p['id'] ?>" <?= ($slot['produto_id'] == $p['id']) ? "selected" : "" ?>>
                         <?= $p['nome'] ?>
                     </option>
-                <?php endforeach; ?>
-            </select>
+                    <?php endforeach; ?>
+                </select>
 
-            <button class="botao">SALVAR ALTERAÇÕES</button>
-            <a href="home.php" class="botao-voltar">Voltar</a>
-        </form>
+                <button class="botao">SALVAR ALTERAÇÕES</button>
+                <a href="home.php" class="botao-voltar">Voltar</a>
+            </form>
 
-    </section>
-</main>
+        </section>
+    </main>
+
+    <?php if ($mostrar_alerta): ?>
+    <script>
+    Swal.fire({
+        title: "Atualizado!",
+        text: "O slot foi atualizado com sucesso.",
+        icon: "success",
+        background: "rgba(233, 195, 255, 1)",
+        color: "#292929",
+        confirmButtonColor: "#6a1b9a",
+        confirmButtonText: "OK"
+    }).then(() => {
+        window.location.href = "home.php"; // redireciona para home.php após clicar em OK
+    });
+    </script>
+    <?php endif; ?>
+
 </body>
+
 </html>

@@ -62,9 +62,9 @@ $perfil = $_SESSION["perfil"] ?? null;
 ?>
 
 
-    <header>
+<header>
     <div class="cabecalho">
-        TUNEHAUS 
+        TUNEHAUS
         <img src="img/logopng.png" alt="Logo do site" class="logo">
     </div>
 
@@ -74,7 +74,7 @@ $perfil = $_SESSION["perfil"] ?? null;
             <li><a href="home.php">Home</a></li>
 
             <?php if ($logado && $perfil === 'Admin'): ?>
-                <li><a href="listar-clientes.php">Clientes</a></li>
+            <li><a href="listar-clientes.php">Clientes</a></li>
             <?php endif; ?>
 
             <li class="dropdown">
@@ -92,35 +92,35 @@ $perfil = $_SESSION["perfil"] ?? null;
             <li><a href="suporte.php">Suporte</a></li>
 
             <?php if ($logado): ?>
-                <li>
-                    <form action="logout.php" method="POST">
-                        <button type="submit" class="botao-logout">logout</button>
-                    </form>
-                </li>
+            <li>
+                <form action="logout.php" method="POST">
+                    <button type="submit" class="botao-logout">logout</button>
+                </form>
+            </li>
             <?php else: ?>
-                <li><a href="login.php" class="botao-login">login</a></li>
+            <li><a href="login.php" class="botao-login">login</a></li>
             <?php endif; ?>
 
         </ul>
     </nav>
-    </header>
-    <main>
-        <div class="topo">
-            <p>Bem-vindo, <strong><?= htmlspecialchars($usuarioLogado) ?></strong>!</p>
-            <?php if ($perfil === 'Admin'): ?>
-            <h1>Painel Administrativo</h1>
-            <?php endif; ?>
-            <div class="titulo-com-linhas">
-                <div class="linha"></div>
-                <h2><?= htmlspecialchars($tituloPagina) ?></h2>
-                <div class="linha"></div>
-            </div>
+</header>
+<main>
+    <div class="topo">
+        <p>Bem-vindo, <strong><?= htmlspecialchars($usuarioLogado) ?></strong>!</p>
+        <?php if ($perfil === 'Admin'): ?>
+        <h1>Painel Administrativo</h1>
+        <?php endif; ?>
+        <div class="titulo-com-linhas">
+            <div class="linha"></div>
+            <h2><?= htmlspecialchars($tituloPagina) ?></h2>
+            <div class="linha"></div>
         </div>
+    </div>
 
-        <section class="produtos-container">
-            <?php if (!empty($produtos)): ?>
-            <?php foreach ($produtos as $produto): ?>
-            <a href="produto.php?id=<?= $produto->getId() ?>" class="link-card">    
+    <section class="produtos-container">
+        <?php if (!empty($produtos)): ?>
+        <?php foreach ($produtos as $produto): ?>
+        <a href="produto.php?id=<?= $produto->getId() ?>" class="link-card">
             <div class="produto-card">
                 <?php
                     $img = $produto->getImagem();
@@ -130,82 +130,82 @@ $perfil = $_SESSION["perfil"] ?? null;
                 <h3><?= htmlspecialchars($produto->getNome()) ?></h3>
                 <p><?= htmlspecialchars($produto->getDescricao()) ?></p>
                 <p class="preco">R$ <?= number_format($produto->getPreco(), 2, ",", ".") ?></p>
-            </a>
+        </a>
 
-                <!-- SOMENTE ADMIN VÊ OS BOTÕES -->
-                <?php if ($perfil === 'Admin'): ?>
-                <div class="botoes">
-                    <form action="editar-produto.php" method="GET" style="display:inline;">
-                        <input type="hidden" name="id" value="<?= $produto->getId() ?>">
-                        <button type="submit" class="bteditar">Editar</button>
-                    </form>
+        <!-- SOMENTE ADMIN VÊ OS BOTÕES -->
+        <?php if ($perfil === 'Admin'): ?>
+        <div class="botoes">
+            <form action="editar-produto.php" method="GET" style="display:inline;">
+                <input type="hidden" name="id" value="<?= $produto->getId() ?>">
+                <button type="submit" class="bteditar">Editar</button>
+            </form>
 
-                    <form action="remover-produto.php" method="GET" style="display:inline;">
-                        <input type="hidden" name="id" value="<?= $produto->getId() ?>">
-                        <button type="submit" class="btremover btn-excluir">Remover</button>
-                    </form>
-                </div>
-                <?php endif; ?>
-            </div>
-            <?php endforeach; ?>
-            <?php else: ?>
-            <p class="nenhum-produto">Nenhum produto encontrado nesta categoria.</p>
-            <?php endif; ?>
-        </section>
-
-       <?php if ($perfil === 'Admin'): ?>
-            <div class="acoes">
-                <button class="btcadastrar" onclick="window.location='cadastrar-produto.php'">CADASTRAR PRODUTO</button>
-                <br>
-                <button class="btgerar" onclick="window.location='gerar-relatorio-produtos.php'">
-                    GERAR RELATÓRIO PDF
-                </button>
-            </div>
+            <form action="remover-produto.php" method="GET" style="display:inline;">
+                <input type="hidden" name="id" value="<?= $produto->getId() ?>">
+                <button type="submit" class="btremover btn-excluir">Remover</button>
+            </form>
+        </div>
         <?php endif; ?>
-    </main>
+        </div>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <p class="nenhum-produto">Nenhum produto encontrado nesta categoria.</p>
+        <?php endif; ?>
+    </section>
 
-    <script>
-    document.addEventListener("click", function(e) {
-        const target = e.target.closest && e.target.closest(".btn-excluir");
-        if (!target) return;
+    <?php if ($perfil === 'Admin'): ?>
+    <div class="acoes">
+        <button class="btcadastrar" onclick="window.location='cadastrar-produto.php'">CADASTRAR PRODUTO</button>
+        <br>
+        <button class="btgerar" onclick="window.location='gerar-relatorio-produtos.php'">
+            GERAR RELATÓRIO PDF
+        </button>
+    </div>
+    <?php endif; ?>
+</main>
 
-        const form = target.closest("form");
-        if (!form) return;
+<script>
+document.addEventListener("click", function(e) {
+    const target = e.target.closest && e.target.closest(".btn-excluir");
+    if (!target) return;
 
-        e.preventDefault();
+    const form = target.closest("form");
+    if (!form) return;
 
-        Swal.fire({
-            title: "Deseja excluir?",
-            html: "Essa ação não poderá ser desfeita!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Sim, excluir",
-            cancelButtonText: "Cancelar",
-            background: "rgba(233, 195, 255, 1)",
-            color: "#292929ff",
-            confirmButtonColor: "#c0392b",
-            cancelButtonColor: "#6a1b9a",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
-        });
-    });
-    </script>
+    e.preventDefault();
 
-    <?php if (isset($_SESSION['alert'])): ?>
-    <script>
     Swal.fire({
-        title: "<?= $_SESSION['alert'] === 'excluido' ? 'Excluído!' : 'Atualizado!' ?>",
-        text: "<?= $_SESSION['alert'] === 'excluido' ? 'O produto foi removido com sucesso.' : 'O produto foi editado com sucesso.' ?>",
-        icon: "success",
+        title: "Deseja excluir?",
+        html: "Essa ação não poderá ser desfeita!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sim, excluir",
+        cancelButtonText: "Cancelar",
         background: "rgba(233, 195, 255, 1)",
-        color: "#292929",
-        confirmButtonColor: "#6a1b9a",
-        confirmButtonText: "OK"
+        color: "#292929ff",
+        confirmButtonColor: "#c0392b",
+        cancelButtonColor: "#6a1b9a",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
     });
-    </script>
-    <?php unset($_SESSION['alert']); endif; ?>
+});
+</script>
+
+<?php if (isset($_SESSION['alert'])): ?>
+<script>
+Swal.fire({
+    title: "<?= $_SESSION['alert'] === 'excluido' ? 'Excluído!' : 'Atualizado!' ?>",
+    text: "<?= $_SESSION['alert'] === 'excluido' ? 'O produto foi removido com sucesso.' : 'O produto foi editado com sucesso.' ?>",
+    icon: "success",
+    background: "rgba(233, 195, 255, 1)",
+    color: "#292929",
+    confirmButtonColor: "#6a1b9a",
+    confirmButtonText: "OK"
+});
+</script>
+<?php unset($_SESSION['alert']); endif; ?>
 </body>
 
 </html>

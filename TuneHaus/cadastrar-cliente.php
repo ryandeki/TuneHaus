@@ -27,12 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($erros)) {
         try {
-            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
-            $usuario = new Usuario(null, $nome, 'User', $email, $senhaHash); 
-
+            $usuario = new Usuario(null, $nome, 'User', $email, $senha);
             $usuarioRepo->salvar($usuario);
-
             $_SESSION['sucesso_cadastro'] = true;
             header('Location: cadastrar-cliente.php');
             exit;

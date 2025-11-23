@@ -12,6 +12,10 @@ header {
   padding: 20px 40px;
 }
 
+nav {
+  margin-left: auto;
+}
+
 .logo {
   width: 45px;
   margin: -10px;
@@ -19,8 +23,6 @@ header {
   text-shadow: 0px 5px 5px #585858;
 }
 
-/* menu e submenu */
-/* menu principal*/
 nav .menu-principal {
   list-style: none;
   display: flex;
@@ -36,7 +38,8 @@ nav .menu-principal > li > a {
   font-weight: bold;
   text-transform: lowercase;
   padding: 5px 0;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 
 .botao-logar {
@@ -56,79 +59,33 @@ body {
   font-weight: bold;
   color: rgba(53, 0, 51, 1);
   text-shadow: 0px 5px 5px #585858;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
 }
 
-/* dropdown */
 .dropdown {
   position: relative;
 }
 
 .submenu {
-  display: block;
   position: absolute;
   top: 100%;
   left: 0;
   background: #ffffff;
   padding: 10px 0;
   list-style: none;
-  min-width: 150px;
+  min-width: 160px;
   border-radius: 6px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.25s ease-in-out;
-  z-index: 50;
-}
-
-.submenu li {
-  padding: 5px 15px;
-}
-
-.submenu li a {
-  color: rgba(53, 0, 51, 1);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.submenu li a:hover {
-  color: rgb(156, 0, 146);
-}
-
-.dropdown:hover .submenu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.lista-produtos {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  position: relative;
-}
-
-.has-submenu {
-  position: relative;
-}
-
-.submenu {
-  position: absolute;
-  top: calc(100% - 2px);
-  left: 0;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  min-width: 160px;
-  padding: 10px 0;
-
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-4px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
   pointer-events: none;
+  z-index: 50;
 }
 
 .dropdown:hover .submenu {
@@ -141,30 +98,12 @@ body {
 .submenu li a {
   display: block;
   padding: 6px 12px;
-  color: black;
+  color: rgba(53, 0, 51, 1);
+  text-decoration: none;
+  font-size: 14px;
 }
 
-.has-submenu.open .submenu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.dropdown {
-  position: relative;
-}
-
-.dropdown > a {
-  display: inline-block;
-  padding-bottom: 8px;
-}
-
-.submenu {
-  margin-top: 0;
-}
-
-.dropdown:hover > a {
+.submenu li a:hover {
   color: rgb(156, 0, 146);
 }
 
@@ -198,10 +137,7 @@ form,
 }
 
 .login-container {
-  width: 200%;
   text-align: center;
-  justify-content: center;
-  align-items: center;
 }
 
 .login-container h2 {
@@ -226,6 +162,7 @@ form,
   margin-top: 15px;
   font-size: 14px;
 }
+
 .botao-logar {
   margin-top: 20px;
   background-color: rgba(53, 0, 51, 1);

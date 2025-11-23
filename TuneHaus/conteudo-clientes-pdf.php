@@ -2,7 +2,6 @@
 date_default_timezone_set('America/Sao_Paulo');
 $dataGeracao = date("d/m/Y H:i:s");
 
-// Logo TuneHaus
 $logoPath = __DIR__ . "/img/logopng.png";
 $logoBase64 = base64_encode(file_get_contents($logoPath));
 ?>

@@ -34,11 +34,15 @@ $tituloPagina = $categoriaId && isset($nomesCategorias[$categoriaId])
     ? $nomesCategorias[$categoriaId]
     : "Todos os Produtos";
 
-if ($categoriaId) {
-    $produtos = $repo->listarPorCategoria($categoriaId);
-} else {
-    $produtos = $repo->listar();
-}
+$porPagina = 6;
+$paginaAtual = isset($_GET['pagina']) ? max(1, intval($_GET['pagina'])) : 1;
+$offset = ($paginaAtual - 1) * $porPagina;
+
+$totalProdutos = $repo->contarProdutos($categoriaId);
+$totalPaginas = ceil($totalProdutos / $porPagina);
+
+$produtos = $repo->listarPaginado($offset, $porPagina, $categoriaId);
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -132,7 +136,6 @@ $perfil = $_SESSION["perfil"] ?? null;
                 <p class="preco">R$ <?= number_format($produto->getPreco(), 2, ",", ".") ?></p>
         </a>
 
-        <!-- SOMENTE ADMIN VÊ OS BOTÕES -->
         <?php if ($perfil === 'Admin'): ?>
         <div class="botoes">
             <form action="editar-produto.php" method="GET" style="display:inline;">
@@ -153,6 +156,25 @@ $perfil = $_SESSION["perfil"] ?? null;
         <?php endif; ?>
     </section>
 
+     <?php if ($totalPaginas > 1): ?>
+        <div class="paginacao">
+            <?php if ($paginaAtual > 1): ?>
+                <a href="?pagina=<?= $paginaAtual - 1 ?>&categoria=<?= $categoriaId ?>" class="pag-btn">◀ Anterior</a>
+            <?php endif; ?>
+
+            <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                <a href="?pagina=<?= $i ?>&categoria=<?= $categoriaId ?>"
+                class="pag-btn <?= $i == $paginaAtual ? 'ativo' : '' ?>">
+                <?= $i ?>
+                </a>
+            <?php endfor; ?>
+
+            <?php if ($paginaAtual < $totalPaginas): ?>
+                <a href="?pagina=<?= $paginaAtual + 1 ?>&categoria=<?= $categoriaId ?>" class="pag-btn">Próxima ▶</a>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
     <?php if ($perfil === 'Admin'): ?>
     <div class="acoes">
         <button class="btcadastrar" onclick="window.location='cadastrar-produto.php'">CADASTRAR PRODUTO</button>
@@ -162,6 +184,8 @@ $perfil = $_SESSION["perfil"] ?? null;
         </button>
     </div>
     <?php endif; ?>
+
+   
 </main>
 
 <script>

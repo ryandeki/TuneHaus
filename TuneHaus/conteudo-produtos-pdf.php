@@ -6,7 +6,6 @@ require_once __DIR__ . '/../src/Modelo/Produto.php';
 $repo = new ProdutoRepositorio($pdo);
 $produtos = $repo->listar();
 
-// Logo da TuneHaus no topo do PDF
 $logoPath = __DIR__ . '/img/logopng.png';
 $logoBase64 = base64_encode(file_get_contents($logoPath));
 $logoSrc = "data:image/png;base64,$logoBase64";

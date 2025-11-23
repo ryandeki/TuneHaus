@@ -11,6 +11,11 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
+if (!isset($_SESSION['perfil']) || $_SESSION['perfil'] !== 'Admin') {
+    header("Location: home.php");
+    exit;
+}
+
 $usuarioLogadoEmail = $_SESSION['usuario'];
 
 $repoUser = new UsuarioRepositorio($pdo);

@@ -1,10 +1,9 @@
-/* ===========================
-   HEADER
-=========================== */
 header {
-  background-image: linear-gradient(to right,
+  background-image: linear-gradient(
+      to right,
       rgba(128, 0, 128, 0.08) 1px,
-      transparent 1px),
+      transparent 1px
+    ),
     linear-gradient(to bottom, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
   background-size: 10px 10px;
   display: flex;
@@ -24,9 +23,6 @@ header {
   text-shadow: 0px 5px 5px #585858;
 }
 
-/* ===========================
-   MENU PRINCIPAL
-=========================== */
 nav .menu-principal {
   list-style: none;
   display: flex;
@@ -36,7 +32,7 @@ nav .menu-principal {
   padding: 0;
 }
 
-nav .menu-principal>li>a {
+nav .menu-principal > li > a {
   text-decoration: none;
   color: rgba(53, 0, 51, 1);
   font-size: 15px;
@@ -50,9 +46,6 @@ nav .menu-principal>li>a {
   height: 70px;
 }
 
-/* ===========================
-   BASE
-=========================== */
 body {
   font-family: Arial, sans-serif;
   background-color: #ffffff;
@@ -73,20 +66,17 @@ body {
   white-space: nowrap;
 }
 
-/* ===========================
-   DROPDOWN CONSOLIDADO
-=========================== */
 .dropdown {
   position: relative;
 }
 
-.dropdown>a {
+.dropdown > a {
   display: inline-block;
   padding-bottom: 8px;
   color: rgba(53, 0, 51, 1);
 }
 
-.dropdown>a:hover {
+.dropdown > a:hover {
   color: rgb(156, 0, 146);
 }
 
@@ -132,9 +122,6 @@ body {
   background: #f5e2ff;
 }
 
-/* ===========================
-   BOTÃO LOGOUT
-=========================== */
 .botao-logout,
 .botao-logout:link,
 .botao-logout:visited,
@@ -149,17 +136,11 @@ body {
   padding: 4px;
 }
 
-/* ===========================
-   CONTEÚDO
-=========================== */
 .conteudo {
   width: 100%;
   margin: 40px auto;
 }
 
-/* ===========================
-   TÍTULO
-=========================== */
 .titulo {
   font-size: 28px;
   font-weight: 600;
@@ -167,9 +148,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* ===========================
-   FORMULÁRIO BUSCA
-=========================== */
 .form-busca {
   display: flex;
   gap: 10px;
@@ -199,9 +177,6 @@ body {
   background: #a84cff;
 }
 
-/* ===========================
-   TABELA CLIENTES
-=========================== */
 .tabela {
   width: 100%;
   border-collapse: collapse;
@@ -236,9 +211,6 @@ body {
   color: #777;
 }
 
-/* ===========================
-   BOTÕES DE AÇÃO
-=========================== */
 .btn {
   padding: 6px 12px;
   border-radius: 6px;
@@ -264,9 +236,6 @@ body {
   background: #ff5c5c;
 }
 
-/* ===========================
-   PAGINAÇÃO
-=========================== */
 .paginacao {
   text-align: center;
   margin-top: 25px;

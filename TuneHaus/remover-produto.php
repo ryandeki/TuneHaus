@@ -14,7 +14,6 @@ $id = (int)$_GET['id'];
 $repo = new ProdutoRepositorio($pdo);
 $repo->excluir($id);
 
-// avisa que excluiu
 $_SESSION['alert'] = "excluido";
 
 header("Location: listar-produto.php");

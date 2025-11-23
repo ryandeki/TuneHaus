@@ -2,13 +2,11 @@
 session_start();
 require_once __DIR__ . '/../src/conexao-bd.php';
 
-/* --- PERMISSÃO SOMENTE ADMIN --- */
 if (!isset($_SESSION['perfil']) || $_SESSION['perfil'] !== 'Admin') {
     header("Location: home.php");
     exit;
 }
 
-/* --- SE ENVIAR O FORMULÁRIO --- */
 $mostrar_alerta = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -24,16 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         move_uploaded_file($arquivo['tmp_name'], $caminho);
 
-        // Atualiza no banco
         $sql = $pdo->prepare("UPDATE home_banner SET imagem = ? WHERE id = 1");
         $sql->execute([$nomeFinal]);
 
-        // Seta para exibir alerta na mesma requisição
         $mostrar_alerta = true;
     }
 }
 
-/* --- BANNER ATUAL --- */
 $stmt = $pdo->query("SELECT imagem FROM home_banner WHERE id = 1");
 $banner = $stmt->fetch();
 $caminho_atual = $banner && $banner['imagem']
@@ -88,7 +83,7 @@ Swal.fire({
     confirmButtonColor: "#6a1b9a",
     confirmButtonText: "OK"
 }).then(() => {
-    window.location.href = "home.php"; // redireciona para home.php após clicar em OK
+    window.location.href = "home.php";
 });
 </script>
 <?php endif; ?>

@@ -19,8 +19,19 @@ header {
   text-shadow: 0px 5px 5px #585858;
 }
 
-/* menu e submenu */
-/* menu principal*/
+.link-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.link-card:visited,
+.link-card:hover,
+.link-card:active {
+  text-decoration: underline;
+  color: inherit;
+}
+
 nav .menu-principal {
   list-style: none;
   display: flex;
@@ -39,7 +50,6 @@ nav .menu-principal > li > a {
   display: inline-block;
 }
 
-/* dropdown */
 .dropdown {
   position: relative;
 }
@@ -82,8 +92,6 @@ nav .menu-principal > li > a {
   visibility: visible;
   transform: translateY(0);
 }
-
-/* */
 
 .botao-logout,
 .botao-logout:link,
@@ -379,4 +387,29 @@ main {
 
 .btgerar:hover {
   background-color: #7d278a;
+}
+
+.paginacao {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 30px 0;
+}
+
+.pag-btn {
+  padding: 8px 14px;
+  background: #37112a;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.pag-btn:hover {
+  background: #7d278a;
+}
+
+.pag-btn.ativo {
+  background: #7d278a;
 }

@@ -180,11 +180,14 @@ body {
 .botao-login {
   text-decoration: none;
   border: 2px solid rgba(53, 0, 51, 1);
-  padding: 20px;
+  padding: 5px 10px !important;
   border-radius: 5px;
   color: rgba(53, 0, 51, 1);
   margin-top: 0px;
   font-weight: bold;
+  display: inline-block !important;
+  line-height: normal !important;
+  background: transparent !important;
 }
 
 * {

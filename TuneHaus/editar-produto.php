@@ -5,6 +5,11 @@ require_once __DIR__ . '/../src/conexao-bd.php';
 require_once __DIR__ . '/../src/Repositorio/ProdutoRepositorio.php';
 require_once __DIR__ . '/../src/Modelo/Produto.php';
 
+if (!isset($_SESSION['perfil']) || $_SESSION['perfil'] !== 'Admin') {
+    header("Location: home.php");
+    exit;
+}
+
 $repo = new ProdutoRepositorio($pdo);
 
 try {

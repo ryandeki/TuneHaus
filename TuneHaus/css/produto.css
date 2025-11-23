@@ -1,54 +1,22 @@
-/* produto.css - estilo inspirado na imagem fornecida */
-/* Reset mínimo */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
 body {
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  color: #111;
-  background: #fff;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
   line-height: 1.5;
 }
 
-/* Container */
 .container {
   max-width: 1100px;
   margin: 32px auto;
   padding: 0 20px;
 }
 
-/* Header */
-.header-global {
-  padding: 18px 0;
-}
-.header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.logo {
-  font-weight: 800;
-  font-size: 34px;
-  color: #2c0826;
-  text-shadow: 1px 1px 0 #fff;
-}
-.logo .nota {
-  font-size: 18px;
-  margin-left: 6px;
-  color: #7a2b57;
-}
-.top-nav {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-}
-.top-nav a {
-  color: #2c0826;
-  text-decoration: none;
-  font-size: 15px;
-}
 .login-btn {
   border: 1px solid #2c0826;
   padding: 8px 12px;
@@ -58,7 +26,6 @@ body {
   text-decoration: none;
 }
 
-/* Main layout */
 .main-produto .top-area {
   display: flex;
   gap: 60px;
@@ -66,10 +33,10 @@ body {
   margin-top: 20px;
 }
 
-/* Imagem grande */
 .imagem-grande {
   flex: 1 1 48%;
 }
+
 .frame {
   border: 4px solid #37112a;
   padding: 26px;
@@ -79,6 +46,7 @@ body {
   justify-content: center;
   background: #fff;
 }
+
 .frame img {
   max-width: 100%;
   max-height: 100%;
@@ -86,27 +54,28 @@ body {
   display: block;
 }
 
-/* Sugestão de música */
 .musica-sugestao {
   margin-top: 12px;
   color: #222;
   font-size: 15px;
 }
 
-/* Detalhes (lado direito) */
 .detalhes {
   flex: 1 1 44%;
   max-width: 44%;
 }
+
 .titulo {
   font-size: 32px;
   margin-bottom: 12px;
   line-height: 1.05;
 }
+
 .subinfo {
   color: #8b8b8b;
   margin-bottom: 18px;
 }
+
 .preco {
   font-size: 18px;
   margin-bottom: 18px;
@@ -114,13 +83,13 @@ body {
   font-weight: 600;
 }
 
-/* Ações */
 .acoes-produto {
   display: flex;
   gap: 16px;
   align-items: center;
   margin-bottom: 18px;
 }
+
 .btn-comprar {
   background: #37112a;
   color: #fff;
@@ -129,38 +98,40 @@ body {
   border: none;
   cursor: pointer;
   font-weight: 600;
+  width: 200px;
 }
+
 .btn-fav {
   background: transparent;
   border: 2px solid #37112a;
   width: 48px;
   height: 44px;
   border-radius: 10px;
-  line-height: 1;
   font-size: 20px;
   cursor: pointer;
 }
 
-/* Descrição em bullets */
 .lista-descricao {
   margin-top: 12px;
   color: #444;
   list-style: disc;
   padding-left: 18px;
 }
+
 .lista-descricao li {
   margin-bottom: 8px;
   font-size: 14px;
 }
 
-/* Similares */
 .similares {
   margin-top: 40px;
 }
+
 .similares h2 {
   font-size: 22px;
   margin-bottom: 22px;
 }
+
 .similares-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -168,41 +139,43 @@ body {
   padding-bottom: 60px;
 }
 
-/* Card similar */
 .card-similar {
   text-align: center;
 }
+
 .card-similar img {
   width: 180px;
   height: 260px;
   object-fit: contain;
-  display: block;
   margin: 0 auto 18px;
 }
+
 .card-similar h3 {
   font-size: 16px;
   margin-bottom: 8px;
   color: #111;
 }
+
 .card-similar .mini-desc {
   color: #8b8b8b;
   font-size: 13px;
   margin-bottom: 8px;
 }
+
 .card-similar .mini-preco {
   font-weight: 600;
   margin-bottom: 12px;
 }
+
 .card-similar .saiba-mais {
   background: #37112a;
   color: #fff;
-  display: inline-block;
   padding: 8px 26px;
   border-radius: 8px;
   margin-top: 8px;
+  display: inline-block;
 }
 
-/* link do card */
 .card-link {
   text-decoration: none;
   color: inherit;
@@ -210,17 +183,19 @@ body {
   padding: 6px;
 }
 
-/* Responsividade simples */
 @media (max-width: 900px) {
   .main-produto .top-area {
     flex-direction: column;
   }
+
   .detalhes {
     max-width: 100%;
   }
+
   .frame {
     height: 420px;
   }
+
   .similares-grid {
     grid-template-columns: 1fr;
   }
@@ -234,9 +209,17 @@ header {
     ),
     linear-gradient(to bottom, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
   background-size: 10px 10px;
-  position: relative;
-  margin: 0;
-  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+}
+
+.cabecalho {
+  font-size: 48px;
+  font-weight: bold;
+  color: rgba(53, 0, 51, 1);
+  text-shadow: 0px 5px 5px #585858;
 }
 
 .logo {
@@ -246,56 +229,84 @@ header {
   text-shadow: 0px 5px 5px #585858;
 }
 
-nav .lista-produtos {
+nav .menu-principal {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 25px;
+  align-items: center;
 }
 
-nav .lista-produtos li a {
+nav .menu-principal > li > a {
   text-decoration: none;
   color: rgba(53, 0, 51, 1);
-  text-transform: lowercase;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: bold;
+  text-transform: lowercase;
+  padding: 5px 0;
 }
 
-.botao-logout,
-.botao-logout:link,
-.botao-logout:visited,
-.botao-logout:hover,
-.botao-logout:active {
+.dropdown {
+  position: relative;
+}
+
+.submenu {
+  list-style: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  padding: 10px 0;
+  min-width: 150px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.25s ease-in-out;
+  z-index: 50;
+}
+
+.submenu li {
+  padding: 5px 15px;
+}
+
+.submenu li a {
+  color: rgba(53, 0, 51, 1);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.submenu li a:hover {
+  color: rgb(156, 0, 146);
+}
+
+.dropdown:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.botao-logout {
   color: red;
   background-color: transparent;
   border: 2px solid red;
   border-radius: 6px;
   font-weight: bold;
-  display: inline-block;
   padding: 4px;
 }
 
-.botao-logar {
-  height: 70px;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-}
-
-.cabecalho {
-  font-size: 48px;
+.btgerar {
+  margin-top: 15px;
+  background-color: rgba(53, 0, 51, 1);
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 6px;
+  cursor: pointer;
   font-weight: bold;
-  color: rgba(53, 0, 51, 1);
-  text-shadow: 0px 5px 5px #585858;
+  transition: 0.3s;
+}
+
+.btgerar:hover {
+  background-color: #7d278a;
 }

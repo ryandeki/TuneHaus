@@ -6,7 +6,6 @@ require_once __DIR__ . '/../src/Repositorio/ProdutoRepositorio.php';
 require_once __DIR__ . '/../src/Repositorio/CategoriaRepositorio.php';
 require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
 
-// Pegar id do produto via GET
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 if ($id <= 0) {
     header('Location: listar-produto.php');
@@ -16,15 +15,12 @@ if ($id <= 0) {
 $produtoRepo = new ProdutoRepositorio($pdo);
 $categoriaRepo = new CategoriaRepositorio($pdo);
 
-// Buscar produto
 $produto = $produtoRepo->buscarPorId($id);
 if (!$produto) {
     header('Location: listar-produto.php');
     exit;
 }
 
-// Buscar produtos semelhantes (mesma categoria, excluindo o atual)
-// Aqui reutilizo listarPorCategoria mas removo o atual (até 4 similares)
 $similares = [];
 $categoriaId = $produto->getCategoriaId();
 if ($categoriaId !== null) {
@@ -37,7 +33,6 @@ if ($categoriaId !== null) {
     }
 }
 
-// perfil do usuario (opcional, caso queira mostrar admin)
 $perfil = null;
 $usuarioLogado = null;
 if (isset($_SESSION['usuario'])) {
@@ -49,10 +44,8 @@ if (isset($_SESSION['usuario'])) {
     }
 }
 
-// caminho padrão da imagem (fallback para a imagem enviada por você)
-$fallbackImagem = '/mnt/data/Produto DETALHES.jpg'; // caminho local do arquivo enviado
+$fallbackImagem = '/mnt/data/Produto DETALHES.jpg';
 
-// função helper para exibir texto com segurança
 function e($v) {
     return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
@@ -65,24 +58,58 @@ function e($v) {
     <link rel="stylesheet" href="css/produto.css">
 </head>
 <body>
-    <header>
-        <div class="cabecalho">TUNEHAUS <img src="img/logopng.png" alt="Logo do site" class="logo"></div>
-        <nav>
-            <ul class="lista-produtos">
-                <li><a href="html/home-logado.html">Home</a></li>
-                <li><a href="listar-produto.php?categoria=1">Guitarras</a></li>
-                <li><a href="listar-produto.php?categoria=2">Violões</a></li>
-                <li><a href="listar-produto.php?categoria=3">Baixos</a></li>
-                <li><a href="listar-produto.php?categoria=4">Teclados</a></li>
-                <li><a href="listar-produto.php?categoria=5">Flautas</a></li>
-                <li>
-                    <form action="logout.php" method="POST" style="display:inline">
-                        <button type="submit" class="botao-logout">logout</button>
-                    </form>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$logado = isset($_SESSION["usuario"]);
+$perfil = $_SESSION["perfil"] ?? null;
+?>
+
+<header>
+    <div class="cabecalho">
+        TUNEHAUS
+        <img src="img/logopng.png" alt="Logo do site" class="logo">
+    </div>
+
+    <nav>
+        <ul class="menu-principal">
+
+            <li><a href="home.php">Home</a></li>
+
+            <?php if ($logado && $perfil === 'Admin'): ?>
+            <li><a href="listar-clientes.php">Clientes</a></li>
+            <?php endif; ?>
+
+            <li class="dropdown">
+                <a href="#">Produtos ▾</a>
+                <ul class="submenu">
+                    <li><a href="listar-produto.php">Todos</a></li>
+                    <li><a href="listar-produto.php?categoria=1">Guitarras</a></li>
+                    <li><a href="listar-produto.php?categoria=2">Violões</a></li>
+                    <li><a href="listar-produto.php?categoria=3">Baixos</a></li>
+                    <li><a href="listar-produto.php?categoria=4">Teclados</a></li>
+                    <li><a href="listar-produto.php?categoria=5">Flautas</a></li>
+                </ul>
+            </li>
+
+            <li><a href="suporte.php">Suporte</a></li>
+
+            <?php if ($logado): ?>
+            <li>
+                <form action="logout.php" method="POST">
+                    <button type="submit" class="botao-logout">logout</button>
+                </form>
+            </li>
+            <?php else: ?>
+            <li><a href="login.php" class="botao-login">login</a></li>
+            <?php endif; ?>
+
+        </ul>
+    </nav>
+</header>
 
     <main class="container main-produto">
         <div class="top-area">
@@ -102,8 +129,8 @@ function e($v) {
 
             <aside class="detalhes">
                 <h1 class="titulo"><?= e($produto->getNome()) ?></h1>
-                <?php if ($produto->getInformacoes()): ?>
-                    <p class="subinfo"><?= e($produto->getInformacoes()) ?></p>
+                <?php if ($produto->getDescricao()): ?>
+                    <p class="subinfo"><?= e($produto->getDescricao()) ?></p>
                 <?php endif; ?>
 
                 <p class="preco">R$ <?= number_format($produto->getPreco(), 2, ",", ".") ?></p>
@@ -113,11 +140,10 @@ function e($v) {
                     <button class="btn-fav" aria-label="Adicionar aos favoritos">♡</button>
                 </div>
 
-                <?php if ($produto->getDescricao()): ?>
+                <?php if ($produto->getInformacoes()): ?>
                 <ul class="lista-descricao">
                     <?php
-                        // Se a descrição contém quebras de linha, transformamos em itens
-                        $desc = $produto->getDescricao();
+                        $desc = $produto->getInformacoes();
                         $linhas = preg_split('/\r\n|\r|\n/', $desc);
                         foreach ($linhas as $l): 
                             $texto = trim($l);

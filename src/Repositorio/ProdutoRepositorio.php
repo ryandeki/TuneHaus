@@ -104,5 +104,53 @@ class ProdutoRepositorio
         $stmt->bindValue(1, $id);
         $stmt->execute();
     }
+
+    public function contarProdutos($categoriaId = null) {
+    if ($categoriaId) {
+        $sql = "SELECT COUNT(*) FROM produtos WHERE categoria_id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$categoriaId]);
+    } else {
+        $sql = "SELECT COUNT(*) FROM produtos";
+        $stmt = $this->pdo->query($sql);
+    }
+
+    return $stmt->fetchColumn();
+    }
+    public function listarPaginado(int $offset, int $limite, ?int $categoriaId = null): array{
+    if ($categoriaId) {
+        $sql = "SELECT * FROM produtos WHERE categoria_id = :categoria ORDER BY id DESC LIMIT :offset, :limite";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':categoria', $categoriaId, PDO::PARAM_INT);
+    } else {
+        $sql = "SELECT * FROM produtos ORDER BY id DESC LIMIT :offset, :limite";
+        $stmt = $this->pdo->prepare($sql);
+    }
+
+    $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+    $stmt->bindValue(":limite", $limite, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $produtos = [];
+
+    foreach ($dados as $p) {
+        $produtos[] = new Produto(
+            $p['id'],
+            $p['nome'],
+            $p['descricao'],
+            $p['informacoes'],
+            $p['preco'],
+            $p['musica'],
+            $p['imagem'],
+            $p['categoria_id']
+        );
+    }
+
+    return $produtos;
+    }
+
+
 }
 ?>

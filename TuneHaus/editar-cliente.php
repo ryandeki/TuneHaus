@@ -7,7 +7,6 @@ require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
 
 $repo = new UsuarioRepositorio($pdo);
 
-// Verifica ID
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die("ID inválido.");
 }
@@ -116,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         confirmButtonColor: "#6a1b9a",
         confirmButtonText: "OK"
     }).then(() => {
-        // Redireciona para listar-clientes.php após clicar OK
         window.location.href = 'listar-clientes.php';
     });
     </script>

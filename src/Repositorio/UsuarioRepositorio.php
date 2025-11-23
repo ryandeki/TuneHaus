@@ -10,15 +10,29 @@ class UsuarioRepositorio
         $this->pdo = $pdo;
     }
 
-        public function salvar(Usuario $usuario)
-    {
-        $senhaPlain = $usuario->getSenha();
-        $senhaHash = password_hash($senhaPlain, PASSWORD_DEFAULT);
+    public function salvar(Usuario $usuario)
+{
+    // A senha que vem do objeto Usuario é a senha pura digitada pelo usuário
+    $senhaPlain = $usuario->getSenha();
 
-        $stmt = $this->pdo->prepare("INSERT INTO usuarios (nome, perfil, email, senha) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$usuario->getNome(), $usuario->getPerfil(), $usuario->getEmail(), $senhaHash]);
-        return $this->pdo->lastInsertId();
-    }
+    // Criamos o hash de forma correta (apenas 1 vez)
+    $senhaHash = password_hash($senhaPlain, PASSWORD_DEFAULT);
+
+    $stmt = $this->pdo->prepare("
+        INSERT INTO usuarios (nome, perfil, email, senha)
+        VALUES (?, ?, ?, ?)
+    ");
+
+    $stmt->execute([
+        $usuario->getNome(),
+        $usuario->getPerfil(),
+        $usuario->getEmail(),
+        $senhaHash
+    ]);
+
+    return $this->pdo->lastInsertId();
+}
+
 
         public function atualizar(Usuario $usuario)
     {

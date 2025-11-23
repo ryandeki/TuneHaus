@@ -25,15 +25,12 @@ $perfil = $usuario->getPerfil();
 $usuarioLogado = $usuario->getNome();
 $usuarioRepo = new UsuarioRepositorio($pdo);
 
-// 🔎 BUSCA
 $busca = trim($_GET['busca'] ?? '');
 
-// PAGINAÇÃO --------------------------------------
 $limite = 6; 
 $pagina = isset($_GET['pagina']) ? max(1, intval($_GET['pagina'])) : 1;
 $offset = ($pagina - 1) * $limite;
 
-// Se tiver busca → pagina resultados filtrados
 if ($busca !== '') {
     $stmtTotal = $pdo->prepare("SELECT COUNT(*) FROM usuarios WHERE nome LIKE ? OR email LIKE ?");
     $stmtTotal->execute(["%$busca%", "%$busca%"]);
@@ -116,7 +113,6 @@ $perfil = $_SESSION["perfil"] ?? null;
 
         <h2 class="titulo">Lista de Clientes</h2>
 
-        <!-- 🔎 Caixa de busca -->
         <form class="form-busca" method="GET">
             <input type="text" name="busca" placeholder="Buscar por nome ou e-mail..."
                 value="<?= htmlspecialchars($busca) ?>">
@@ -164,7 +160,6 @@ $perfil = $_SESSION["perfil"] ?? null;
 
         <a href="gerar-relatorio-clientes.php" class="btn-relatorio">Gerar Relatório</a>
 
-        <!-- ⭐ PAGINAÇÃO -->
         <div class="paginacao">
             <?php if ($pagina > 1): ?>
             <a href="?pagina=<?= $pagina - 1 ?>&busca=<?= urlencode($busca) ?>">&laquo; Anterior</a>

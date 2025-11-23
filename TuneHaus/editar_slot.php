@@ -2,13 +2,11 @@
 session_start();
 require_once __DIR__ . '/../src/conexao-bd.php';
 
-/* --- PERMISSÃO SOMENTE ADMIN --- */
 if (!isset($_SESSION['perfil']) || $_SESSION['perfil'] !== 'Admin') {
     header("Location: home.php");
     exit;
 }
 
-/* --- VERIFICA SE O SLOT FOI ENVIADO --- */
 if (!isset($_GET['id'])) {
     header("Location: home.php");
     exit;
@@ -17,7 +15,6 @@ if (!isset($_GET['id'])) {
 $slot_id = intval($_GET['id']);
 $mostrar_alerta = false;
 
-/* --- SALVAR SLOT --- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $produto_id = $_POST['produto_id'];
@@ -25,14 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = $pdo->prepare("UPDATE home_slots SET produto_id = ? WHERE id = ?");
     $sql->execute([$produto_id, $slot_id]);
 
-    // Seta para exibir alerta na mesma requisição
     $mostrar_alerta = true;
 }
 
-/* --- LISTA DE PRODUTOS --- */
 $produtos = $pdo->query("SELECT * FROM produtos ORDER BY nome ASC")->fetchAll();
 
-/* --- SLOT ATUAL --- */
 $sql = $pdo->prepare("SELECT * FROM home_slots WHERE id = ?");
 $sql->execute([$slot_id]);
 $slot = $sql->fetch();
@@ -88,7 +82,7 @@ $slot = $sql->fetch();
         confirmButtonColor: "#6a1b9a",
         confirmButtonText: "OK"
     }).then(() => {
-        window.location.href = "home.php"; // redireciona para home.php após clicar em OK
+        window.location.href = "home.php"; 
     });
     </script>
     <?php endif; ?>

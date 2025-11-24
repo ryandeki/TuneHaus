@@ -12,10 +12,8 @@ class UsuarioRepositorio
 
     public function salvar(Usuario $usuario)
 {
-    // A senha que vem do objeto Usuario é a senha pura digitada pelo usuário
     $senhaPlain = $usuario->getSenha();
 
-    // Criamos o hash de forma correta (apenas 1 vez)
     $senhaHash = password_hash($senhaPlain, PASSWORD_DEFAULT);
 
     $stmt = $this->pdo->prepare("

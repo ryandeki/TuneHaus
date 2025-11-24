@@ -37,7 +37,7 @@ $eAdmin = (isset($_SESSION['perfil']) && $_SESSION['perfil'] === 'Admin');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuneHaus - Home</title>
     <link rel="stylesheet" href="css/home.css">
-    <link rel="icon" href="../img/logopng.png" type="image/x-icon">
+    <link rel="icon" href="img/logopng.png" type="image/x-icon">
 </head>
 
 <body>

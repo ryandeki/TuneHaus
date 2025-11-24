@@ -6,6 +6,11 @@ require_once __DIR__ . '/../src/Repositorio/ProdutoRepositorio.php';
 require_once __DIR__ . '/../src/Repositorio/CategoriaRepositorio.php';
 require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
 
+if (!isset($_SESSION['usuario'])) {
+    header('Location: login.php');
+    exit;
+}
+
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 if ($id <= 0) {
     header('Location: listar-produto.php');
@@ -56,6 +61,7 @@ function e($v) {
     <meta charset="utf-8">
     <title><?= e($produto->getNome()) ?> - TUNEHAUS</title>
     <link rel="stylesheet" href="css/produto.css">
+    <link rel="icon" href="img/logopng.png" type="image/x-icon">
 </head>
 <body>
     

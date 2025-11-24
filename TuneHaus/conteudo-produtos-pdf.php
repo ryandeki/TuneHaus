@@ -6,12 +6,12 @@ require_once __DIR__ . '/../src/Modelo/Produto.php';
 $repo = new ProdutoRepositorio($pdo);
 $produtos = $repo->listar();
 
-$logoPath = __DIR__ . '/img/logopng.png';
+$logoPath = __DIR__ . "/img/logopng.png";
 $logoBase64 = base64_encode(file_get_contents($logoPath));
 $logoSrc = "data:image/png;base64,$logoBase64";
 
 date_default_timezone_set('America/Sao_Paulo');
-$dataAtual = date('d/m/Y H:i');
+$dataAtual = date("d/m/Y H:i:s");
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +30,6 @@ $dataAtual = date('d/m/Y H:i');
         align-items: center;
         gap: 20px;
         border-bottom: 3px solid #5A189A;
-        padding-bottom: 10px;
         margin-bottom: 25px;
     }
 
@@ -38,7 +37,8 @@ $dataAtual = date('d/m/Y H:i');
         width: 65px;
     }
 
-    .header h1 {
+    .titulo {
+        font-weight: bold; 
         font-size: 22px;
         color: #5A189A;
         margin: 0;
@@ -75,8 +75,8 @@ $dataAtual = date('d/m/Y H:i');
 <body>
 
 <div class="header">
-    <img src="<?= $logoSrc ?>" alt="Logo TuneHaus">
-    <h1>RELATÓRIO — PRODUTOS</h1>
+    <img src="data:image/png;base64,<?= $logoBase64 ?>" class="logo">
+    <span class="titulo">RELATÓRIO – PRODUTOS</span>
 </div>
 
 <table>
@@ -114,7 +114,7 @@ $dataAtual = date('d/m/Y H:i');
 </table>
 
 <div class="footer">
-    Gerado em <?= $dataAtual ?>
+    Gerado em <?= $dataAtual ?> — TuneHaus
 </div>
 
 </body>

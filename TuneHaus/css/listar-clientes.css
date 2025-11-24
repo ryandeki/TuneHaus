@@ -137,8 +137,9 @@ body {
 }
 
 .conteudo {
-  width: 100%;
+  width: 95%;
   margin: 40px auto;
+  padding: 10px;
 }
 
 .titulo {

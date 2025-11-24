@@ -37,7 +37,9 @@ $slot = $sql->fetch();
 <head>
     <meta charset="UTF-8">
     <title>Editar Slot <?= $slot_id ?></title>
+    <link rel="icon" href="img/logopng.png" type="image/x-icon">
     <link rel="stylesheet" href="css/editar-home.css">
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <header>

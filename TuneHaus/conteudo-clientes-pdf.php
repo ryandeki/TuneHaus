@@ -11,14 +11,49 @@ $logoBase64 = base64_encode(file_get_contents($logoPath));
 <head>
 <meta charset="UTF-8">
 <style>
-body { font-family: Arial, Helvetica, sans-serif; }
-.cabecalho { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-.logo { width: 80px; }
-.titulo { font-size: 28px; font-weight: bold; color: #40023c; }
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-table th { background: #40023c; color: #fff; padding: 10px; font-size: 14px; text-align: left; }
-table td { padding: 8px; font-size: 13px; border-bottom: 1px solid #ccc; }
-.rodape { margin-top: 35px; text-align: center; font-size: 12px; color: #444; }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 40px;
+    }
+.cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #40023c;
+    }
+.logo {
+    width: 80px;
+    }
+.titulo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #40023c; 
+    }
+table {
+    width: 100%; 
+    border-collapse: collapse;
+    margin-top: 10px; 
+    }
+table th { 
+    background: #40023c;
+    color: #fff;
+    padding: 10px;
+    font-size: 14px;
+    text-align: left; 
+    }
+table td {
+    padding: 8px;
+    font-size: 13px;
+    border-bottom: 1px solid #ccc;
+    }
+.rodape { 
+    margin-top: 35px; 
+    text-align: center; 
+    font-size: 12px; 
+    color: #444; 
+    }
 </style>
 </head>
 <body>
@@ -43,7 +78,7 @@ table td { padding: 8px; font-size: 13px; border-bottom: 1px solid #ccc; }
 <tr>
     <td><?= $c->getId() ?></td>
     <td><?= htmlspecialchars($c->getNome()) ?></td>
-    <td><?= htmlspecialchars($c->getEmail()) ?></td> <!-- 3ª coluna = E-mail -->
+    <td><?= htmlspecialchars($c->getEmail()) ?></td>
     <td>
         <?php
         $perfis = [
@@ -53,7 +88,7 @@ table td { padding: 8px; font-size: 13px; border-bottom: 1px solid #ccc; }
         ];
         $perfilRaw = $c->getPerfil();
         if (is_numeric($perfilRaw)) {
-            echo $perfis[(int)$perfilRaw] ?? "N/A";    // 4ª coluna = Perfil
+            echo $perfis[(int)$perfilRaw] ?? "N/A";
         } else {
             echo htmlspecialchars($perfilRaw);
         }
